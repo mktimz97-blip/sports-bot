@@ -1,0 +1,21 @@
+# SportAnalytics Bot — зависимости
+# Установка: pip install -r requirements.txt
+
+# HTTP-клиент
+requests>=2.31.0
+
+# Timezone database (обязательно на Windows — ZoneInfo не имеет встроенных данных)
+tzdata>=2024.1
+
+# Планировщик задач
+schedule>=1.2.1
+
+# Telegram Bot API
+python-telegram-bot>=20.7
+
+# Timezone (встроена в Python 3.9+, для 3.8 нужен backport)
+# backports.zoneinfo>=0.2.1  # раскомментировать если Python < 3.9
+
+# Опционально: async event loop на Windows
+# (python-telegram-bot ставит автоматически)
+# asyncio>=3.4.3

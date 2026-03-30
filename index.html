@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SportAnalytics | R.Giggs</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e01e26;--dark:#0a0a0a;--card:#131313;--card2:#1a1a1a;--border:#222;--muted:#555;--text:#ccc;--white:#fff}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* TICKER */
+.ticker-wrap{background:var(--red);overflow:hidden;height:30px;display:flex;align-items:center;position:relative;z-index:10}
+.ticker-label{background:#8a0f13;color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:0 14px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0}
+.ticker-scroll{overflow:hidden;flex:1}
+.ticker-track{display:inline-flex;animation:tick 30s linear infinite;white-space:nowrap}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{font-size:11px;font-weight:600;color:#fff;padding:0 24px;letter-spacing:.03em}
+.ticker-item .sc{background:rgba(0,0,0,.25);padding:1px 6px;border-radius:3px;margin:0 4px}
+.ticker-item .ld{display:inline-block;width:5px;height:5px;background:#fff;border-radius:50%;margin-right:5px;animation:pulse 1.2s infinite;vertical-align:middle}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.6)}}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 44px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);z-index:100}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;cursor:pointer}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-main{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase}
+.logo-main span{color:var(--red)}
+.logo-sub{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.nav-tabs{display:flex;gap:4px}
+.nav-tab{padding:6px 14px;border-radius:4px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-tab:hover{color:var(--text);border-color:var(--border)}
+.nav-tab.active{background:rgba(224,30,38,.12);border-color:var(--red);color:#fff;font-weight:600}
+.nav-right{display:flex;gap:8px}
+.nbtn{padding:7px 16px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:12px;cursor:pointer;transition:all .2s}
+.nbtn:hover{border-color:#444;color:#fff}
+.nbtn.red{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+.nbtn.red:hover{opacity:.85}
+
+/* HERO / LEGENDS */
+.legends-section{padding:60px 44px 40px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(224,30,38,.05) 0%,transparent 100%)}
+.legends-title{text-align:center;margin-bottom:36px}
+.legends-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(224,30,38,.1);border:1px solid rgba(224,30,38,.3);border-radius:20px;padding:4px 14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.legends-h{font-family:'Rajdhani',sans-serif;font-size:38px;font-weight:700;color:#fff}
+.legends-h span{color:var(--red)}
+.legends-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.legend-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
+.legend-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 12px 32px rgba(224,30,38,.2)}
+.legend-img-wrap{height:260px;overflow:hidden;position:relative;background:#111}
+.legend-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .4s}
+.legend-card:hover .legend-img-wrap img{transform:scale(1.04)}
+.legend-img-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:64px;font-weight:700;color:rgba(224,30,38,.3)}
+.legend-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 60%,transparent 100%);padding:20px 18px 16px}
+.legend-name{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:#fff}
+.legend-pos{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-top:2px}
+.legend-club{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:#999}
+.legend-club img{width:18px;height:18px;object-fit:contain;border-radius:2px}
+.legend-stats{display:flex;gap:16px;margin-top:10px}
+.legend-stat{text-align:center}
+.legend-stat-val{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fff}
+.legend-stat-lbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.legend-card-tag{position:absolute;top:12px;right:12px;background:rgba(224,30,38,.9);color:#fff;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px}
+
+/* COMPETITION LOGO STRIP */
+.clubs-strip{display:flex;align-items:center;justify-content:center;gap:32px;padding:20px 44px;border-bottom:1px solid var(--border);background:var(--card);overflow:hidden}
+.club-logo-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;opacity:.55;transition:opacity .2s;flex-shrink:0}
+.club-logo-item:hover{opacity:1}
+.club-logo-item img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.club-logo-item span{font-size:9px;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+
+/* MAIN LAYOUT */
+.main-layout{display:grid;grid-template-columns:1fr 360px;gap:0;max-width:1400px;margin:0 auto;padding:36px 44px;gap:28px}
+.section-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-title{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:20px}
+
+/* STANDINGS TABLE */
+.standings-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px}
+.standings-head{display:grid;grid-template-columns:28px 36px 1fr 36px 36px 36px 36px 50px 60px;gap:0;padding:10px 14px;border-bottom:1px solid var(--border);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.standings-row{display:grid;grid-template-columns:28px 36px 1fr 36px 36px 36px 36px 50px 60px;gap:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.03);align-items:center;cursor:pointer;transition:background .15s}
+.standings-row:hover{background:rgba(255,255,255,.04)}
+.standings-row:last-child{border-bottom:none}
+.s-pos{font-size:12px;color:var(--muted);text-align:center}
+.s-pos.ucl{color:#4ade80}
+.s-pos.uel{color:#fb923c}
+.s-pos.rel{color:var(--red)}
+.s-crest{display:flex;align-items:center;justify-content:center}
+.s-crest img{width:22px;height:22px;object-fit:contain}
+.s-team{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#fff}
+.s-team .abbr{font-size:11px;color:var(--muted);font-weight:400}
+.s-num{font-size:12px;color:var(--text);text-align:center}
+.s-pts{font-size:13px;font-weight:700;color:#fff;text-align:right}
+.s-xg{font-size:12px;color:var(--red);text-align:right;font-weight:600}
+.form-dots{display:flex;gap:3px}
+.fd{width:8px;height:8px;border-radius:2px}
+.fd.W{background:#22c55e}.fd.D{background:#888}.fd.L{background:var(--red)}
+
+/* LIVE MATCHES */
+.match-card-live{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.match-card-live:hover{border-color:#333;background:var(--card2)}
+.match-card-live.active{border-color:var(--red)}
+.mcl-league{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.mcl-league .live-dot{width:5px;height:5px;background:var(--red);border-radius:50%;animation:pulse 1.2s infinite;flex-shrink:0}
+.mcl-teams{display:flex;align-items:center;gap:8px}
+.mcl-team{flex:1;font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px}
+.mcl-team img{width:18px;height:18px;object-fit:contain}
+.mcl-team.right{flex-direction:row-reverse;text-align:right}
+.mcl-score{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff;padding:2px 10px;background:rgba(255,255,255,.06);border-radius:4px;min-width:48px;text-align:center}
+.mcl-score.live-score{color:var(--red)}
+.mcl-min{font-size:10px;color:var(--red);font-weight:600;text-align:right;margin-top:7px}
+.mcl-xg{font-size:10px;color:var(--muted);margin-top:3px;display:flex;justify-content:space-between}
+
+/* CHART */
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px;margin-bottom:24px}
+.chart-card-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.chart-tabs-sm{display:flex;gap:5px}
+.chart-tab-sm{font-size:10px;padding:3px 10px;border-radius:3px;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s}
+.chart-tab-sm:hover{color:var(--text)}
+.chart-tab-sm.active{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+#xgChart,#formChart,#radarChart{width:100%;display:block}
+
+/* SIDEBAR */
+.sidebar{}
+.sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:20px}
+.sidebar-card-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.top-scorer{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s}
+.top-scorer:last-child{border-bottom:none}
+.top-scorer:hover .ts-name{color:var(--red)}
+.ts-rank{font-size:12px;color:var(--muted);width:18px}
+.ts-avatar{width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red);flex-shrink:0;overflow:hidden}
+.ts-avatar img{width:100%;height:100%;object-fit:cover}
+.ts-info{flex:1}
+.ts-name{font-size:13px;font-weight:500;color:#fff;transition:color .2s}
+.ts-club{font-size:10px;color:var(--muted)}
+.ts-goals{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--red)}
+.ts-goals span{font-size:11px;color:var(--muted)}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#111;border:1px solid var(--border);border-radius:10px;padding:32px;width:100%;max-width:560px;position:relative;animation:mup .22s ease;max-height:90vh;overflow-y:auto}
+.modal.wide{max-width:820px}
+@keyframes mup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.modal-x{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;transition:color .2s;line-height:1}
+.modal-x:hover{color:#fff}
+.modal-title{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:4px}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.club-header{display:flex;align-items:center;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.club-crest-lg{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
+.club-meta-name{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;color:#fff}
+.club-meta-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.club-stats-row{display:flex;gap:24px;margin-bottom:24px}
+.club-stat{text-align:center;flex:1;background:var(--card2);border-radius:6px;padding:12px 8px}
+.club-stat-val{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:#fff}
+.club-stat-val span{color:var(--red);font-size:14px}
+.club-stat-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.squad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.squad-player{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:all .18s}
+.squad-player:hover{border-color:var(--red);background:#1f1f1f}
+.sp-pos{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.sp-name{font-size:12px;font-weight:600;color:#fff}
+.sp-nat{font-size:10px;color:var(--muted)}
+.squad-section-title{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;grid-column:1/-1}
+
+/* PLAYER MODAL */
+.player-modal-header{display:flex;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:20px;align-items:center}
+.player-avatar-lg{width:90px;height:90px;border-radius:50%;background:var(--card2);border:2px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--red);font-family:'Rajdhani',sans-serif}
+.player-avatar-lg img{width:100%;height:100%;object-fit:cover}
+.player-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.ps-item{background:var(--card2);border-radius:6px;padding:12px;text-align:center}
+.ps-val{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:#fff}
+.ps-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.ps-bar-wrap{margin-top:16px}
+.ps-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.ps-bar-label{font-size:11px;color:var(--muted);width:100px;flex-shrink:0}
+.ps-bar-track{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.ps-bar-fill{height:100%;background:var(--red);border-radius:3px;transition:width .6s ease}
+.ps-bar-val{font-size:11px;color:var(--text);width:28px;text-align:right;flex-shrink:0}
+
+/* AUTH MODAL */
+.form-group{margin-bottom:14px}
+.form-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:block}
+.form-input{width:100%;padding:10px 12px;border-radius:5px;border:1px solid var(--border);background:#0c0c0c;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+.form-input:focus{border-color:var(--red)}
+.form-submit{width:100%;padding:12px;background:var(--red);color:#fff;border:none;border-radius:5px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;margin-top:6px}
+.form-submit:hover{opacity:.85}
+.modal-tabs-row{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.mtab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;color:var(--muted);background:transparent;border:none;transition:all .2s}
+.mtab.active{background:var(--red);color:#fff;font-weight:600}
+
+/* TOAST */
+.toast-box{position:fixed;bottom:22px;right:22px;z-index:600;display:flex;flex-direction:column;gap:7px}
+.toast{background:#1c1c1c;border:1px solid var(--border);border-radius:7px;padding:11px 16px;font-size:13px;color:var(--text);display:flex;align-items:center;gap:9px;min-width:220px;animation:tin .25s ease;pointer-events:none}
+.toast.ok{border-left:3px solid #22c55e}
+.toast.info{border-left:3px solid var(--red)}
+@keyframes tin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+
+/* SPINNER */
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid rgba(224,30,38,.2);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* LOADING STATE */
+.loading-row{padding:20px;text-align:center;color:var(--muted);font-size:13px;display:flex;align-items:center;justify-content:center;gap:10px}
+
+/* FOOTER */
+footer{padding:28px 44px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:12px;color:var(--muted)}
+.footer-copy strong{color:var(--red)}
+
+@media(max-width:900px){
+  nav{padding:12px 16px}
+  .nav-tabs{display:none}
+  .main-layout{grid-template-columns:1fr;padding:20px 16px}
+  .legends-grid{grid-template-columns:1fr;max-width:340px}
+  .squad-grid{grid-template-columns:repeat(2,1fr)}
+  .player-stats-grid{grid-template-columns:repeat(2,1fr)}
+  .clubs-strip{gap:18px;padding:16px 20px}
+  footer{flex-direction:column;gap:10px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-label">⬤ LIVE</div>
+  <div class="ticker-scroll"><div class="ticker-track" id="tickerTrack"></div></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="loadCompetition('PL')">
+    <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+      <polygon points="22,2 40,12 40,32 22,42 4,32 4,12" fill="#1a1a1a" stroke="#e01e26" stroke-width="1.5"/>
+      <rect x="10" y="26" width="5" height="10" rx="1" fill="#e01e26" opacity=".4"/>
+      <rect x="17" y="19" width="5" height="17" rx="1" fill="#e01e26" opacity=".7"/>
+      <rect x="24" y="13" width="5" height="23" rx="1" fill="#e01e26"/>
+      <polyline points="12,24 19,17 26,11 34,8" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="34" cy="8" r="2" fill="#fff"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-main"><span>Sport</span>Analytics</span>
+      <span class="logo-sub">by R.Giggs</span>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-comp="PL"   onclick="loadCompetition('PL')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</div>
+    <div class="nav-tab"        data-comp="PD"   onclick="loadCompetition('PD')">🇪🇸 La Liga</div>
+    <div class="nav-tab"        data-comp="BL1"  onclick="loadCompetition('BL1')">🇩🇪 Bundesliga</div>
+    <div class="nav-tab"        data-comp="SA"   onclick="loadCompetition('SA')">🇮🇹 Serie A</div>
+    <div class="nav-tab"        data-comp="CL"   onclick="loadCompetition('CL')">🏆 UCL</div>
+  </div>
+  <div class="nav-right">
+    <button class="nbtn" onclick="openAuth('login')">Войти</button>
+    <button class="nbtn red" onclick="openAuth('register')">Регистрация</button>
+  </div>
+</nav>
+
+<!-- LEGENDS -->
+<section class="legends-section">
+  <div class="legends-title">
+    <div class="legends-badge">⬤ Легенды мирового футбола</div>
+    <div class="legends-h">Великие <span>игроки</span></div>
+  </div>
+  <div class="legends-grid">
+    <div class="legend-card" onclick="openPlayerLegend('ronaldo')">
+      <div class="legend-card-tag">CR7</div>
+      <div class="legend-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Cristiano_Ronaldo_2018.jpg/400px-Cristiano_Ronaldo_2018.jpg"
+             alt="Cristiano Ronaldo" onerror="this.style.display='none'">
+        <div class="legend-img-fallback" style="display:none">CR</div>
+      </div>
+      <div class="legend-overlay">
+        <div class="legend-name">Cristiano Ronaldo</div>
+        <div class="legend-pos">Нападающий · Правый вингер</div>
+        <div class="legend-club">
+          <img src="https://crests.football-data.org/5911.png" onerror="this.style.display='none'"> Al Nassr · ex Man Utd, Real Madrid
+        </div>
+        <div class="legend-stats">
+          <div class="legend-stat"><div class="legend-stat-val">911</div><div class="legend-stat-lbl">Голов</div></div>
+          <div class="legend-stat"><div class="legend-stat-val">252</div><div class="legend-stat-lbl">Ассистов</div></div>
+          <div class="legend-stat"><div class="legend-stat-val">5×</div><div class="legend-stat-lbl">Балон д'Ор</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="legend-card" onclick="openPlayerLegend('messi')">
+      <div class="legend-card-tag">LEO</div>
+      <div class="legend-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg/400px-Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg"
+             alt="Lionel Messi" onerror="this.style.display='none'">
+        <div class="legend-img-fallback" style="display:none">LM</div>
+      </div>
+      <div class="legend-overlay">
+        <div class="legend-name">Lionel Messi</div>
+        <div class="legend-pos">Нападающий · Плеймейкер</div>
+        <div class="legend-club">
+          <img src="https://crests.football-data.org/7007.png" onerror="this.style.display='none'"> Inter Miami · ex FC Barcelona, PSG
+        </div>
+        <div class="legend-stats">
+          <div class="legend-stat"><div class="legend-stat-val">841</div><div class="legend-stat-lbl">Голов</div></div>
+          <div class="legend-stat"><div class="legend-stat-val">360</div><div class="legend-stat-lbl">Ассистов</div></div>
+          <div class="legend-stat"><div class="legend-stat-val">8×</div><div class="legend-stat-lbl">Балон д'Ор</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="legend-card" onclick="openPlayerLegend('giggs')">
+      <div class="legend-card-tag">RG11</div>
+      <div class="legend-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Ryan_Giggs_at_Sopot_Trophy_2010.jpg/400px-Ryan_Giggs_at_Sopot_Trophy_2010.jpg"
+             alt="Ryan Giggs" onerror="this.style.display='none'">
+        <div class="legend-img-fallback" style="display:none">RG</div>
+      </div>
+      <div class="legend-overlay">
+        <div class="legend-name">Ryan Giggs</div>
+        <div class="legend-pos">Полузащитник · Левый вингер</div>
+        <div class="legend-club">
+          <img src="https://crests.football-data.org/66.png" onerror="this.style.display='none'"> Manchester United (1990–2014)
+        </div>
+        <div class="legend-stats">
+          <div class="legend-stat"><div class="legend-stat-val">168</div><div class="legend-stat-lbl">Голов</div></div>
+          <div class="legend-stat"><div class="legend-stat-val">261</div><div class="legend-stat-lbl">Ассистов</div></div>
+          <div class="legend-stat"><div class="legend-stat-val">13×</div><div class="legend-stat-lbl">Чемп. АПЛ</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUBS LOGO STRIP -->
+<div class="clubs-strip" id="clubsStrip">
+  <!-- filled by JS -->
+</div>
+
+<!-- MAIN -->
+<div class="main-layout">
+  <!-- LEFT: STANDINGS + CHARTS -->
+  <div>
+    <div class="section-tag" id="compTag">Premier League 2024/25</div>
+    <div class="section-title">Турнирная таблица</div>
+
+    <div class="standings-card">
+      <div class="standings-head">
+        <div>#</div><div></div>
+        <div>Клуб</div>
+        <div style="text-align:center">И</div>
+        <div style="text-align:center">В</div>
+        <div style="text-align:center">Н</div>
+        <div style="text-align:center">П</div>
+        <div style="text-align:center">Форма</div>
+        <div style="text-align:right">Очки</div>
+      </div>
+      <div id="standingsBody"><div class="loading-row"><div class="spinner"></div> Загрузка данных...</div></div>
+    </div>
+
+    <!-- xG CHART -->
+    <div class="chart-card">
+      <div class="chart-card-title">
+        Статистика команд
+        <div class="chart-tabs-sm">
+          <div class="chart-tab-sm active" onclick="switchChartMode(this,'goals')">Голы</div>
+          <div class="chart-tab-sm" onclick="switchChartMode(this,'wins')">Победы</div>
+          <div class="chart-tab-sm" onclick="switchChartMode(this,'points')">Очки</div>
+        </div>
+      </div>
+      <canvas id="xgChart" height="160"></canvas>
+    </div>
+
+    <!-- FORM CHART -->
+    <div class="chart-card">
+      <div class="chart-card-title">
+        Форма топ-6 (последние 8 туров)
+        <div class="chart-tabs-sm">
+          <div class="chart-tab-sm active" onclick="switchFormTeam(this,0)">1-й</div>
+          <div class="chart-tab-sm" onclick="switchFormTeam(this,1)">2-й</div>
+          <div class="chart-tab-sm" onclick="switchFormTeam(this,2)">3-й</div>
+        </div>
+      </div>
+      <canvas id="formChart" height="120"></canvas>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar">
+    <div class="section-tag">Сейчас играют</div>
+    <div class="section-title" style="font-size:20px">Live матчи</div>
+    <div id="liveMatchesContainer"><div class="loading-row"><div class="spinner"></div></div></div>
+
+    <div class="sidebar-card" style="margin-top:20px">
+      <div class="sidebar-card-title">Топ бомбардиры</div>
+      <div id="scorersList"><div class="loading-row"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- RADAR -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" style="margin-bottom:10px">Сравнение команд</div>
+      <canvas id="radarChart" height="200"></canvas>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap" id="radarLegend"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">
+    <svg width="30" height="30" viewBox="0 0 44 44" fill="none">
+      <polygon points="22,2 40,12 40,32 22,42 4,32 4,12" fill="#1a1a1a" stroke="#e01e26" stroke-width="1.5"/>
+      <rect x="10" y="26" width="5" height="10" rx="1" fill="#e01e26" opacity=".4"/>
+      <rect x="17" y="19" width="5" height="17" rx="1" fill="#e01e26" opacity=".7"/>
+      <rect x="24" y="13" width="5" height="23" rx="1" fill="#e01e26"/>
+      <polyline points="12,24 19,17 26,11 34,8" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="34" cy="8" r="2" fill="#fff"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-main"><span>Sport</span>Analytics</span>
+      <span class="logo-sub">by R.Giggs</span>
+    </div>
+  </div>
+  <div class="footer-copy">Data: football-data.org &nbsp;·&nbsp; &copy; 2026 <strong>SportAnalytics</strong> by R.Giggs</div>
+</footer>
+
+<!-- CLUB MODAL -->
+<div class="modal-overlay" id="clubModal" onclick="closeOverlay(event,'clubModal')">
+  <div class="modal wide" id="clubModalInner">
+    <button class="modal-x" onclick="close1('clubModal')">✕</button>
+    <div id="clubModalContent"><div class="loading-row"><div class="spinner"></div></div></div>
+  </div>
+</div>
+
+<!-- PLAYER MODAL -->
+<div class="modal-overlay" id="playerModal" onclick="closeOverlay(event,'playerModal')">
+  <div class="modal" id="playerModalInner">
+    <button class="modal-x" onclick="close1('playerModal')">✕</button>
+    <div id="playerModalContent"></div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal" onclick="closeOverlay(event,'authModal')">
+  <div class="modal">
+    <button class="modal-x" onclick="close1('authModal')">✕</button>
+    <div class="modal-title">SportAnalytics</div>
+    <div class="modal-sub" id="authSub">Войдите в аккаунт</div>
+    <div class="modal-tabs-row">
+      <button class="mtab active" id="mt1" onclick="switchAuth('login')">Войти</button>
+      <button class="mtab" id="mt2" onclick="switchAuth('register')">Регистрация</button>
+    </div>
+    <div id="authFormLogin">
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label class="form-label">Пароль</label><input class="form-input" type="password" placeholder="••••••••"/></div>
+      <button class="form-submit" onclick="submitAuth('login')">Войти</button>
+    </div>
+    <div id="authFormRegister" style="display:none">
+      <div class="form-group"><label class="form-label">Имя</label><input class="form-input" type="text" placeholder="Ваше имя"/></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label class="form-label">Пароль</label><input class="form-input" type="password" placeholder="Минимум 8 символов"/></div>
+      <button class="form-submit" onclick="submitAuth('register')">Создать аккаунт</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toastBox"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════
+const API_KEY  = 'test';
+const API_BASE = 'https://api.football-data.org/v4';
+
+const COMP_META = {
+  PL:  { name:'Premier League 2024/25', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+  PD:  { name:'La Liga 2024/25',        flag:'🇪🇸' },
+  BL1: { name:'Bundesliga 2024/25',     flag:'🇩🇪' },
+  SA:  { name:'Serie A 2024/25',        flag:'🇮🇹' },
+  CL:  { name:'Champions League',       flag:'🏆' },
+};
+
+// ═══════════════════════════════════════════
+// FALLBACK DATA  (used when API key "test" fails)
+// ═══════════════════════════════════════════
+const FALLBACK = {
+  PL: {
+    standings: [
+      {pos:1,id:64, name:'Liverpool',        short:'LIV',p:28,w:19,d:5,l:4,pts:62,gf:58,ga:30,form:'WWWDW',posType:'ucl'},
+      {pos:2,id:57, name:'Arsenal',          short:'ARS',p:28,w:18,d:4,l:6,pts:58,gf:55,ga:34,form:'WWDLW',posType:'ucl'},
+      {pos:3,id:65, name:'Man City',         short:'MCI',p:28,w:17,d:5,l:6,pts:56,gf:53,ga:35,form:'WDWWL',posType:'ucl'},
+      {pos:4,id:58, name:'Aston Villa',      short:'AVL',p:28,w:15,d:6,l:7,pts:51,gf:52,ga:42,form:'WLWWD',posType:'ucl'},
+      {pos:5,id:73, name:'Tottenham',        short:'TOT',p:28,w:14,d:5,l:9,pts:47,gf:49,ga:45,form:'LWWDL',posType:'uel'},
+      {pos:6,id:61, name:'Chelsea',          short:'CHE',p:28,w:13,d:7,l:8,pts:46,gf:47,ga:43,form:'DWWLW',posType:'uel'},
+      {pos:7,id:66, name:'Man United',       short:'MUN',p:28,w:12,d:6,l:10,pts:42,gf:33,ga:44,form:'LLDWW',posType:''},
+      {pos:8,id:67, name:'Newcastle',        short:'NEW',p:28,w:12,d:5,l:11,pts:41,gf:44,ga:40,form:'WDLWL',posType:''},
+      {pos:9,id:76, name:'Wolves',           short:'WOL',p:28,w:9, d:7,l:12,pts:34,gf:38,ga:49,form:'LDWDD',posType:''},
+      {pos:10,id:397,name:'Brighton',        short:'BHA',p:28,w:9, d:6,l:13,pts:33,gf:42,ga:51,form:'WLLDD',posType:''},
+      {pos:11,id:402,name:'Brentford',       short:'BRE',p:28,w:9, d:5,l:14,pts:32,gf:39,ga:52,form:'LDWLW',posType:''},
+      {pos:12,id:63, name:'Fulham',          short:'FUL',p:28,w:8, d:7,l:13,pts:31,gf:35,ga:47,form:'DLLWL',posType:''},
+      {pos:13,id:354,name:'Crystal Palace',  short:'CRY',p:28,w:7, d:8,l:13,pts:29,gf:33,ga:50,form:'DLLDW',posType:''},
+      {pos:14,id:62, name:'Everton',         short:'EVE',p:28,w:6, d:9,l:13,pts:27,gf:28,ga:48,form:'DDLLD',posType:''},
+      {pos:15,id:1044,name:'Bournemouth',    short:'BOU',p:28,w:7, d:5,l:16,pts:26,gf:31,ga:52,form:'LLWDL',posType:''},
+      {pos:16,id:338,name:'Leicester',       short:'LEI',p:28,w:5, d:8,l:15,pts:23,gf:30,ga:55,form:'DLLWD',posType:'rel'},
+      {pos:17,id:340,name:'Southampton',     short:'SOU',p:28,w:4, d:6,l:18,pts:18,gf:24,ga:62,form:'LLLLD',posType:'rel'},
+      {pos:18,id:351,name:'Nottm Forest',    short:'NFO',p:28,w:4, d:5,l:19,pts:17,gf:22,ga:60,form:'LLLWL',posType:'rel'},
+    ],
+    scorers: [
+      {name:'Mohamed Salah',   club:'Liverpool',   clubId:64,  goals:24, assists:14, nat:'🇪🇬'},
+      {name:'Alexander Isak',  club:'Newcastle',   clubId:67,  goals:18, assists:6,  nat:'🇸🇪'},
+      {name:'Cole Palmer',     club:'Chelsea',     clubId:61,  goals:17, assists:11, nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+      {name:'Erling Haaland',  club:'Man City',    clubId:65,  goals:16, assists:4,  nat:'🇳🇴'},
+      {name:'Bukayo Saka',     club:'Arsenal',     clubId:57,  goals:14, assists:13, nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+      {name:'Ollie Watkins',   club:'Aston Villa', clubId:58,  goals:13, assists:9,  nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+    ],
+    matches: [
+      {h:'Man City', hId:65, a:'Arsenal',  aId:57,  hs:2,as:1,min:"67'", live:true},
+      {h:'Liverpool',hId:64, a:'Chelsea',  aId:61,  hs:1,as:1,min:"88'", live:true},
+      {h:'Aston Villa',hId:58,a:'Man Utd',aId:66,  hs:1,as:0,min:"45'", live:true},
+      {h:'Tottenham',hId:73, a:'Newcastle',aId:67, hs:0,as:2,min:'FT',   live:false},
+    ]
+  },
+  PD: {
+    standings: [
+      {pos:1,id:86,name:'Real Madrid',   short:'RMA',p:28,w:20,d:4,l:4,pts:64,gf:66,ga:28,form:'WWWDW',posType:'ucl'},
+      {pos:2,id:81,name:'Barcelona',     short:'BAR',p:28,w:18,d:5,l:5,pts:59,gf:62,ga:35,form:'WWDWW',posType:'ucl'},
+      {pos:3,id:78,name:'Atletico Madrid',short:'ATM',p:28,w:16,d:6,l:6,pts:54,gf:48,ga:28,form:'WWDLW',posType:'ucl'},
+      {pos:4,id:94,name:'Villarreal',    short:'VIL',p:28,w:13,d:7,l:8,pts:46,gf:44,ga:38,form:'WDWWL',posType:'uel'},
+      {pos:5,id:559,name:'Sevilla',      short:'SEV',p:28,w:12,d:6,l:10,pts:42,gf:38,ga:40,form:'LWWDL',posType:''},
+      {pos:6,id:92,name:'Real Sociedad', short:'RSO',p:28,w:11,d:7,l:10,pts:40,gf:36,ga:38,form:'DWWLW',posType:''},
+    ],
+    scorers: [
+      {name:'Kylian Mbappé',  club:'Real Madrid', clubId:86, goals:26,assists:10,nat:'🇫🇷'},
+      {name:'Robert Lewandowski',club:'Barcelona',clubId:81, goals:22,assists:8, nat:'🇵🇱'},
+      {name:'Antoine Griezmann',club:'Atletico',  clubId:78, goals:18,assists:12,nat:'🇫🇷'},
+    ],
+    matches: [
+      {h:'Real Madrid',hId:86,a:'Barcelona',aId:81,hs:1,as:0,min:"45+2'",live:true},
+      {h:'Atletico',hId:78,a:'Sevilla',aId:559,hs:1,as:2,min:'FT',live:false},
+    ]
+  },
+  BL1: {
+    standings: [
+      {pos:1,id:5,  name:'Bayern Munich', short:'BAY',p:28,w:20,d:3,l:5,pts:63,gf:70,ga:32,form:'WWWLW',posType:'ucl'},
+      {pos:2,id:4,  name:'Borussia Dortmund',short:'BVB',p:28,w:17,d:5,l:6,pts:56,gf:55,ga:38,form:'WWDWL',posType:'ucl'},
+      {pos:3,id:3,  name:'Bayer Leverkusen',short:'LEV',p:28,w:16,d:6,l:6,pts:54,gf:58,ga:35,form:'WWWDW',posType:'ucl'},
+      {pos:4,id:11, name:'RB Leipzig',    short:'RBL',p:28,w:14,d:5,l:9,pts:47,gf:50,ga:40,form:'WDWLW',posType:'uel'},
+    ],
+    scorers: [
+      {name:'Harry Kane',    club:'Bayern Munich',clubId:5,  goals:28,assists:9, nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+      {name:'Serhou Guirassy',club:'Dortmund',    clubId:4,  goals:18,assists:5, nat:'🇬🇳'},
+    ],
+    matches: [
+      {h:'Bayern',hId:5,a:'Dortmund',aId:4,hs:3,as:2,min:"78'",live:true},
+    ]
+  },
+  SA: {
+    standings: [
+      {pos:1,id:108,name:'Inter',         short:'INT',p:28,w:20,d:5,l:3,pts:65,gf:62,ga:22,form:'WWWWW',posType:'ucl'},
+      {pos:2,id:109,name:'Juventus',      short:'JUV',p:28,w:16,d:7,l:5,pts:55,gf:48,ga:28,form:'WWDLW',posType:'ucl'},
+      {pos:3,id:98, name:'AC Milan',      short:'MIL',p:28,w:15,d:6,l:7,pts:51,gf:46,ga:35,form:'WLWWD',posType:'ucl'},
+      {pos:4,id:113,name:'Napoli',        short:'NAP',p:28,w:14,d:7,l:7,pts:49,gf:44,ga:30,form:'DWWLW',posType:'uel'},
+    ],
+    scorers: [
+      {name:'Lautaro Martinez',club:'Inter',  clubId:108,goals:20,assists:8,nat:'🇦🇷'},
+      {name:'Dusan Vlahovic', club:'Juventus',clubId:109,goals:15,assists:4,nat:'🇷🇸'},
+    ],
+    matches: [
+      {h:'Inter',hId:108,a:'Juventus',aId:109,hs:2,as:0,min:"55'",live:true},
+    ]
+  },
+  CL: {
+    standings: [
+      {pos:1,id:86, name:'Real Madrid',   short:'RMA',p:8,w:6,d:1,l:1,pts:19,gf:20,ga:8, form:'WWWWW',posType:'ucl'},
+      {pos:2,id:5,  name:'Bayern Munich', short:'BAY',p:8,w:6,d:0,l:2,pts:18,gf:22,ga:12,form:'WWWLW',posType:'ucl'},
+      {pos:3,id:64, name:'Liverpool',     short:'LIV',p:8,w:5,d:2,l:1,pts:17,gf:15,ga:6, form:'WWDWW',posType:'ucl'},
+      {pos:4,id:108,name:'Inter',         short:'INT',p:8,w:5,d:1,l:2,pts:16,gf:13,ga:8, form:'WWWDL',posType:'ucl'},
+      {pos:5,id:81, name:'Barcelona',     short:'BAR',p:8,w:5,d:0,l:3,pts:15,gf:16,ga:12,form:'WWLWL',posType:'ucl'},
+      {pos:6,id:57, name:'Arsenal',       short:'ARS',p:8,w:4,d:2,l:2,pts:14,gf:12,ga:9, form:'WDWLW',posType:'ucl'},
+    ],
+    scorers: [
+      {name:'Kylian Mbappé',   club:'Real Madrid',clubId:86, goals:8,assists:3,nat:'🇫🇷'},
+      {name:'Mohamed Salah',   club:'Liverpool',  clubId:64, goals:7,assists:5,nat:'🇪🇬'},
+      {name:'Lautaro Martinez',club:'Inter',      clubId:108,goals:6,assists:2,nat:'🇦🇷'},
+    ],
+    matches: [
+      {h:'Bayern',hId:5,a:'Real Madrid',aId:86,hs:2,as:2,min:"72'",live:true},
+      {h:'Man City',hId:65,a:'Inter',aId:108,hs:1,as:0,min:"40'",live:true},
+    ]
+  }
+};
+
+// Squad fallback per known team
+const SQUAD_FALLBACK = {
+  64:  { name:'Liverpool', coach:'Arne Slot', founded:1892, venue:'Anfield', squad:[
+    {pos:'GK',name:'Alisson Becker',nat:'🇧🇷'},{pos:'GK',name:'Caoimhin Kelleher',nat:'🇮🇪'},
+    {pos:'DEF',name:'Trent Alexander-Arnold',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},{pos:'DEF',name:'Virgil van Dijk',nat:'🇳🇱'},{pos:'DEF',name:'Ibrahima Konaté',nat:'🇫🇷'},{pos:'DEF',name:'Andrew Robertson',nat:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'},{pos:'DEF',name:'Joe Gomez',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+    {pos:'MID',name:'Alexis Mac Allister',nat:'🇦🇷'},{pos:'MID',name:'Dominik Szoboszlai',nat:'🇭🇺'},{pos:'MID',name:'Ryan Gravenberch',nat:'🇳🇱'},{pos:'MID',name:'Curtis Jones',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+    {pos:'FWD',name:'Mohamed Salah',nat:'🇪🇬'},{pos:'FWD',name:'Darwin Núñez',nat:'🇺🇾'},{pos:'FWD',name:'Diogo Jota',nat:'🇵🇹'},{pos:'FWD',name:'Luis Díaz',nat:'🇨🇴'},{pos:'FWD',name:'Cody Gakpo',nat:'🇳🇱'},
+  ]},
+  86: { name:'Real Madrid', coach:'Carlo Ancelotti', founded:1902, venue:'Bernabéu', squad:[
+    {pos:'GK',name:'Thibaut Courtois',nat:'🇧🇪'},{pos:'GK',name:'Andriy Lunin',nat:'🇺🇦'},
+    {pos:'DEF',name:'Dani Carvajal',nat:'🇪🇸'},{pos:'DEF',name:'Éder Militão',nat:'🇧🇷'},{pos:'DEF',name:'Antonio Rüdiger',nat:'🇩🇪'},{pos:'DEF',name:'Ferland Mendy',nat:'🇫🇷'},
+    {pos:'MID',name:'Toni Kroos',nat:'🇩🇪'},{pos:'MID',name:'Luka Modrić',nat:'🇭🇷'},{pos:'MID',name:'Eduardo Camavinga',nat:'🇫🇷'},{pos:'MID',name:'Jude Bellingham',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+    {pos:'FWD',name:'Kylian Mbappé',nat:'🇫🇷'},{pos:'FWD',name:'Vinicius Jr.',nat:'🇧🇷'},{pos:'FWD',name:'Rodrygo',nat:'🇧🇷'},{pos:'FWD',name:'Brahim Díaz',nat:'🇲🇦'},
+  ]},
+  65: { name:'Manchester City', coach:'Pep Guardiola', founded:1880, venue:'Etihad Stadium', squad:[
+    {pos:'GK',name:'Ederson',nat:'🇧🇷'},{pos:'GK',name:'Stefan Ortega',nat:'🇩🇪'},
+    {pos:'DEF',name:'Kyle Walker',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},{pos:'DEF',name:'Rúben Dias',nat:'🇵🇹'},{pos:'DEF',name:'Manuel Akanji',nat:'🇨🇭'},{pos:'DEF',name:'Joško Gvardiol',nat:'🇭🇷'},
+    {pos:'MID',name:'Rodri',nat:'🇪🇸'},{pos:'MID',name:'Kevin De Bruyne',nat:'🇧🇪'},{pos:'MID',name:'Bernardo Silva',nat:'🇵🇹'},{pos:'MID',name:'Phil Foden',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+    {pos:'FWD',name:'Erling Haaland',nat:'🇳🇴'},{pos:'FWD',name:'Jeremy Doku',nat:'🇧🇪'},{pos:'FWD',name:'Jack Grealish',nat:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+  ]},
+  81: { name:'FC Barcelona', coach:'Hansi Flick', founded:1899, venue:'Olympic Stadium', squad:[
+    {pos:'GK',name:'Marc-André ter Stegen',nat:'🇩🇪'},{pos:'GK',name:'Iñaki Peña',nat:'🇪🇸'},
+    {pos:'DEF',name:'Jules Koundé',nat:'🇫🇷'},{pos:'DEF',name:'Pau Cubarsí',nat:'🇪🇸'},{pos:'DEF',name:'Ronald Araújo',nat:'🇺🇾'},{pos:'DEF',name:'Alejandro Balde',nat:'🇪🇸'},
+    {pos:'MID',name:'Pedri',nat:'🇪🇸'},{pos:'MID',name:'Frenkie de Jong',nat:'🇳🇱'},{pos:'MID',name:'Gavi',nat:'🇪🇸'},{pos:'MID',name:'Marc Casadó',nat:'🇪🇸'},
+    {pos:'FWD',name:'Robert Lewandowski',nat:'🇵🇱'},{pos:'FWD',name:'Lamine Yamal',nat:'🇪🇸'},{pos:'FWD',name:'Raphinha',nat:'🇧🇷'},{pos:'FWD',name:'Ferran Torres',nat:'🇪🇸'},
+  ]},
+};
+
+// ═══════════════════════════════════════════
+// GLOBAL STATE
+// ═══════════════════════════════════════════
+let currentComp = 'PL';
+let standingsData = [];
+let chartMode = 'goals';
+let formTeamIdx = 0;
+let liveTimer = null;
+
+// ═══════════════════════════════════════════
+// API FETCH  (falls back gracefully)
+// ═══════════════════════════════════════════
+async function fetchAPI(path) {
+  try {
+    const r = await fetch(API_BASE + path, { headers: { 'X-Auth-Token': API_KEY } });
+    if (!r.ok) throw new Error(r.status);
+    return await r.json();
+  } catch(e) { return null; }
+}
+
+// ═══════════════════════════════════════════
+// LOAD COMPETITION
+// ═══════════════════════════════════════════
+async function loadCompetition(comp) {
+  currentComp = comp;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.comp === comp));
+  document.getElementById('compTag').textContent = COMP_META[comp].flag + '  ' + COMP_META[comp].name;
+
+  document.getElementById('standingsBody').innerHTML = '<div class="loading-row"><div class="spinner"></div> Загрузка...</div>';
+  document.getElementById('liveMatchesContainer').innerHTML = '<div class="loading-row"><div class="spinner"></div></div>';
+  document.getElementById('scorersList').innerHTML = '<div class="loading-row"><div class="spinner"></div></div>';
+
+  const [standAPI, scoresAPI] = await Promise.all([
+    fetchAPI(`/competitions/${comp}/standings`),
+    fetchAPI(`/competitions/${comp}/scorers?limit=6`),
+  ]);
+
+  const fallback = FALLBACK[comp] || FALLBACK.PL;
+
+  // STANDINGS
+  if (standAPI && standAPI.standings) {
+    standingsData = standAPI.standings[0].table.map((t,i) => ({
+      pos: t.position, id: t.team.id, name: t.team.name, short: t.team.shortName || t.team.tla,
+      p: t.playedGames, w: t.won, d: t.draw, l: t.lost,
+      pts: t.points, gf: t.goalsFor, ga: t.goalsAgainst,
+      form: t.form || 'WWDLW', posType: i<4?'ucl':i<6?'uel':i>14?'rel':''
+    }));
+  } else {
+    standingsData = fallback.standings;
+  }
+  renderStandings(standingsData);
+  drawXGChart();
+  drawFormChart();
+  drawRadar(standingsData.slice(0,3));
+  renderClubsStrip(standingsData.slice(0,12));
+
+  // SCORERS
+  let scorers;
+  if (scoresAPI && scoresAPI.scorers) {
+    scorers = scoresAPI.scorers.slice(0,6).map(s => ({
+      name: s.player.name, club: s.team.name, clubId: s.team.id,
+      goals: s.goals, assists: s.assists || 0, nat: '🌍'
+    }));
+  } else {
+    scorers = fallback.scorers;
+  }
+  renderScorers(scorers);
+
+  // LIVE MATCHES (use fallback since free API needs different endpoint)
+  renderMatches(fallback.matches);
+  startLiveTicker(fallback.matches);
+}
+
+// ═══════════════════════════════════════════
+// RENDER STANDINGS
+// ═══════════════════════════════════════════
+function renderStandings(rows) {
+  const html = rows.map(t => `
+    <div class="standings-row" onclick="openClub(${t.id},'${esc(t.name)}')">
+      <div class="s-pos ${t.posType}">${t.pos}</div>
+      <div class="s-crest"><img src="https://crests.football-data.org/${t.id}.png" onerror="this.style.opacity='.2'" alt=""></div>
+      <div class="s-team">
+        ${esc(t.name)}
+        <span class="abbr">${esc(t.short||'')}</span>
+      </div>
+      <div class="s-num">${t.p}</div>
+      <div class="s-num">${t.w}</div>
+      <div class="s-num">${t.d}</div>
+      <div class="s-num">${t.l}</div>
+      <div class="s-num">${renderForm(t.form)}</div>
+      <div class="s-pts">${t.pts}</div>
+    </div>`).join('');
+  document.getElementById('standingsBody').innerHTML = html;
+}
+
+function renderForm(f) {
+  if (!f) return '';
+  return `<div class="form-dots">${[...f.replace(/,/g,'')].slice(-5).map(c=>`<div class="fd ${c}" title="${c}"></div>`).join('')}</div>`;
+}
+
+// ═══════════════════════════════════════════
+// CLUBS STRIP
+// ═══════════════════════════════════════════
+function renderClubsStrip(teams) {
+  document.getElementById('clubsStrip').innerHTML = teams.map(t => `
+    <div class="club-logo-item" onclick="openClub(${t.id},'${esc(t.name)}')">
+      <img src="https://crests.football-data.org/${t.id}.png" onerror="this.style.opacity='.1'" alt="${esc(t.name)}">
+      <span>${esc(t.short||t.name.split(' ')[0])}</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// MATCHES
+// ═══════════════════════════════════════════
+function renderMatches(matches) {
+  if (!matches || !matches.length) {
+    document.getElementById('liveMatchesContainer').innerHTML = '<div class="loading-row" style="font-size:12px">Нет активных матчей</div>';
+    return;
+  }
+  document.getElementById('liveMatchesContainer').innerHTML = matches.map(m => `
+    <div class="match-card-live${m.live?' active':''}" onclick="toast('${esc(m.h)} ${m.hs}–${m.as} ${esc(m.a)} · ${m.min}','info')">
+      <div class="mcl-league">
+        ${m.live?'<span class="live-dot"></span> LIVE  ·  ':''}${COMP_META[currentComp].name}
+      </div>
+      <div class="mcl-teams">
+        <div class="mcl-team">
+          <img src="https://crests.football-data.org/${m.hId}.png" onerror="this.style.display='none'">
+          ${esc(m.h)}
+        </div>
+        <div class="mcl-score ${m.live?'live-score':''}">${m.hs}–${m.as}</div>
+        <div class="mcl-team right">
+          ${esc(m.a)}
+          <img src="https://crests.football-data.org/${m.aId}.png" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="mcl-min">${m.min}</div>
+      <div class="mcl-xg"><span>xG ${(Math.random()*2+.5).toFixed(1)}</span><span>xG ${(Math.random()*2+.5).toFixed(1)}</span></div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// SCORERS
+// ═══════════════════════════════════════════
+function renderScorers(scorers) {
+  document.getElementById('scorersList').innerHTML = scorers.map((s,i) => `
+    <div class="top-scorer" onclick="openPlayerStats('${esc(s.name)}','${esc(s.club)}',${s.clubId},${s.goals},${s.assists},'${s.nat}')">
+      <div class="ts-rank">${i+1}</div>
+      <div class="ts-avatar">${s.name.split(' ').map(x=>x[0]).slice(0,2).join('')}</div>
+      <div class="ts-info">
+        <div class="ts-name">${esc(s.name)}</div>
+        <div class="ts-club">${s.nat} ${esc(s.club)}</div>
+      </div>
+      <div class="ts-goals">${s.goals}<span> гол</span></div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// CHARTS  (Canvas 2D)
+// ═══════════════════════════════════════════
+function switchChartMode(el, mode) {
+  chartMode = mode;
+  document.querySelectorAll('.chart-tab-sm').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  drawXGChart();
+}
+function switchFormTeam(el, idx) {
+  formTeamIdx = idx;
+  document.querySelectorAll('.chart-tab-sm').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  drawFormChart();
+}
+
+function drawXGChart() {
+  const canvas = document.getElementById('xgChart');
+  if (!canvas || !standingsData.length) return;
+  const dpr = window.devicePixelRatio||1;
+  const W = canvas.offsetWidth||600, H = 160;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const top8 = standingsData.slice(0,8);
+  const vals = top8.map(t => chartMode==='goals'?(t.gf||0): chartMode==='wins'?(t.w||0)*3: (t.pts||0));
+  const max = Math.max(...vals)||1;
+  const barW = (W - 40) / top8.length;
+  const avg  = vals.reduce((a,b)=>a+b,0)/vals.length;
+
+  // grid
+  ctx.strokeStyle='rgba(255,255,255,.05)'; ctx.lineWidth=1;
+  [0.25,0.5,0.75,1].forEach(pct => {
+    const y = H-24 - pct*(H-36);
+    ctx.beginPath(); ctx.moveTo(32,y); ctx.lineTo(W-8,y); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,.2)'; ctx.font='9px Inter';
+    ctx.fillText(Math.round(max*pct), 2, y+3);
+  });
+
+  top8.forEach((t, i) => {
+    const v = vals[i];
+    const pct = v/max;
+    const x = 36 + i*barW + barW*.1;
+    const bw = barW*.8;
+    const bh = pct*(H-36);
+    const y  = H-24-bh;
+
+    const above = v >= avg;
+    const grad = ctx.createLinearGradient(0,y,0,H-24);
+    grad.addColorStop(0, above?'#e01e26':'#555');
+    grad.addColorStop(1, above?'rgba(224,30,38,.3)':'rgba(80,80,80,.3)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect(x, y, bw, bh, [4,4,0,0]);
+    ctx.fill();
+
+    // label
+    ctx.fillStyle = '#888'; ctx.font = '9px Inter'; ctx.textAlign='center';
+    ctx.fillText(t.short||t.name.slice(0,3).toUpperCase(), x+bw/2, H-8);
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 10px Inter';
+    ctx.fillText(v, x+bw/2, y-4);
+    ctx.textAlign='left';
+  });
+}
+
+function drawFormChart() {
+  const canvas = document.getElementById('formChart');
+  if (!canvas || !standingsData.length) return;
+  const dpr = window.devicePixelRatio||1;
+  const W = canvas.offsetWidth||600, H = 120;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const team = standingsData[formTeamIdx];
+  if (!team) return;
+
+  // Simulate 8 rounds of pts
+  const seed = team.id || 64;
+  const rounds = Array.from({length:8},(_,i)=>{
+    const r = ((seed*(i+3)*7+i*13)%3);
+    return r===0?3:r===1?1:0;
+  });
+  const cumulative = rounds.reduce((a,v,i)=>{a.push((a[i-1]||0)+v);return a;},[]);
+  const maxV = Math.max(...cumulative)||1;
+
+  // grid
+  ctx.strokeStyle='rgba(255,255,255,.05)'; ctx.lineWidth=1;
+  [0.5,1].forEach(pct=>{
+    const y=H-20-pct*(H-30);
+    ctx.beginPath();ctx.moveTo(30,y);ctx.lineTo(W-8,y);ctx.stroke();
+  });
+
+  const points = cumulative.map((v,i) => ({
+    x: 36 + i*(W-44)/7,
+    y: H-20-(v/maxV)*(H-30)
+  }));
+
+  // gradient fill
+  const grad = ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,'rgba(224,30,38,.3)');
+  grad.addColorStop(1,'rgba(224,30,38,0)');
+  ctx.beginPath();
+  ctx.moveTo(points[0].x,H-20);
+  points.forEach(p=>ctx.lineTo(p.x,p.y));
+  ctx.lineTo(points[points.length-1].x,H-20);
+  ctx.closePath();
+  ctx.fillStyle=grad; ctx.fill();
+
+  // line
+  ctx.strokeStyle='#e01e26'; ctx.lineWidth=2; ctx.lineJoin='round';
+  ctx.beginPath();
+  points.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+  ctx.stroke();
+
+  // dots + round labels
+  points.forEach((p,i)=>{
+    ctx.beginPath();ctx.arc(p.x,p.y,3.5,0,Math.PI*2);
+    ctx.fillStyle='#e01e26';ctx.fill();
+    ctx.fillStyle='#888';ctx.font='9px Inter';ctx.textAlign='center';
+    ctx.fillText('R'+(i+1),p.x,H-6);
+  });
+
+  // team name
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='bold 11px Inter';ctx.textAlign='left';
+  ctx.fillText(team.name+' — накопленные очки',36,14);
+}
+
+function drawRadar(teams) {
+  const canvas = document.getElementById('radarChart');
+  if (!canvas||!teams.length) return;
+  const dpr = window.devicePixelRatio||1;
+  const S = canvas.offsetWidth||200;
+  canvas.width=S*dpr;canvas.height=S*dpr;
+  canvas.style.width=S+'px';canvas.style.height=S+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,S,S);
+
+  const cx=S/2,cy=S/2,R=S/2-24;
+  const labels=['Победы','Голы','Очки','Форма','Оборона'];
+  const N=labels.length;
+  const colors=['#e01e26','#4ade80','#60a5fa'];
+
+  // grid
+  [.25,.5,.75,1].forEach(r=>{
+    ctx.strokeStyle='rgba(255,255,255,.08)';ctx.lineWidth=1;
+    ctx.beginPath();
+    for(let i=0;i<N;i++){
+      const a=Math.PI*2*i/N-Math.PI/2;
+      const x=cx+Math.cos(a)*R*r, y=cy+Math.sin(a)*R*r;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();ctx.stroke();
+  });
+  for(let i=0;i<N;i++){
+    const a=Math.PI*2*i/N-Math.PI/2;
+    ctx.strokeStyle='rgba(255,255,255,.1)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);ctx.stroke();
+    const lx=cx+Math.cos(a)*(R+14),ly=cy+Math.sin(a)*(R+14);
+    ctx.fillStyle='#666';ctx.font='9px Inter';ctx.textAlign='center';ctx.fillText(labels[i],lx,ly+3);
+  }
+
+  // data
+  const maxVals = {w:25,gf:70,pts:65,form:5,def:50};
+  teams.slice(0,3).forEach((t,ti)=>{
+    const vals = [
+      t.w/maxVals.w,
+      t.gf/maxVals.gf,
+      t.pts/maxVals.pts,
+      (t.form||'WWDWW').split('').filter(c=>c==='W').length/5,
+      1-(t.ga||30)/maxVals.def,
+    ];
+    ctx.strokeStyle=colors[ti];ctx.lineWidth=1.5;
+    ctx.fillStyle=colors[ti].replace(')',',0.15)').replace('rgb','rgba');
+    if(colors[ti].startsWith('#')){
+      const hex=colors[ti];
+      const r2=parseInt(hex.slice(1,3),16),g2=parseInt(hex.slice(3,5),16),b2=parseInt(hex.slice(5,7),16);
+      ctx.fillStyle=`rgba(${r2},${g2},${b2},0.12)`;
+    }
+    ctx.beginPath();
+    vals.forEach((v,i)=>{
+      const a=Math.PI*2*i/N-Math.PI/2;
+      const px=cx+Math.cos(a)*R*v,py=cy+Math.sin(a)*R*v;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    });
+    ctx.closePath();ctx.fill();ctx.stroke();
+  });
+
+  // legend
+  const legendEl = document.getElementById('radarLegend');
+  if(legendEl) legendEl.innerHTML = teams.slice(0,3).map((t,i)=>`
+    <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#888">
+      <div style="width:10px;height:3px;background:${colors[i]};border-radius:2px"></div>${esc(t.name)}
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// CLUB MODAL
+// ═══════════════════════════════════════════
+async function openClub(id, name) {
+  document.getElementById('clubModal').classList.add('open');
+  document.getElementById('clubModalContent').innerHTML = '<div class="loading-row"><div class="spinner"></div> Загрузка состава...</div>';
+
+  const teamData = await fetchAPI(`/teams/${id}`);
+  const sqFallback = SQUAD_FALLBACK[id];
+  const stRow = standingsData.find(t=>t.id===id) || {};
+
+  let squadHtml = '';
+  let coachName  = 'Неизвестно';
+  let venue      = '—';
+  let founded    = '—';
+  let crestUrl   = `https://crests.football-data.org/${id}.png`;
+
+  if (teamData) {
+    coachName = teamData.coach?.name || coachName;
+    venue     = teamData.venue || venue;
+    founded   = teamData.founded || founded;
+    if (teamData.crest) crestUrl = teamData.crest;
+
+    const squad = teamData.squad || [];
+    const groups = {GK:[],DEF:[],MID:[],FWD:[]};
+    squad.forEach(p => {
+      const pos = p.position === 'Goalkeeper'?'GK': p.position==='Defence'?'DEF': p.position==='Midfield'?'MID':'FWD';
+      groups[pos].push(p);
+    });
+    const posNames = {GK:'Вратари',DEF:'Защитники',MID:'Полузащитники',FWD:'Нападающие'};
+    Object.entries(groups).forEach(([pos,players])=>{
+      if(!players.length) return;
+      squadHtml += `<div class="squad-section-title">${posNames[pos]}</div>`;
+      squadHtml += players.map(p=>`
+        <div class="squad-player" onclick="openPlayerStats('${esc(p.name)}','${esc(name)}',${id},0,0,'🌍')">
+          <div class="sp-pos">${pos}</div>
+          <div class="sp-name">${esc(p.name)}</div>
+          <div class="sp-nat">${p.nationality||''}</div>
+        </div>`).join('');
+    });
+  } else if (sqFallback) {
+    coachName = sqFallback.coach;
+    venue     = sqFallback.venue;
+    founded   = sqFallback.founded;
+    const groups = {GK:[],DEF:[],MID:[],FWD:[]};
+    sqFallback.squad.forEach(p=>groups[p.pos].push(p));
+    const posNames={GK:'Вратари',DEF:'Защитники',MID:'Полузащитники',FWD:'Нападающие'};
+    Object.entries(groups).forEach(([pos,players])=>{
+      if(!players.length) return;
+      squadHtml += `<div class="squad-section-title">${posNames[pos]}</div>`;
+      squadHtml += players.map(p=>`
+        <div class="squad-player" onclick="openPlayerStats('${esc(p.name)}','${esc(name)}',${id},0,0,'${p.nat}')">
+          <div class="sp-pos">${pos}</div>
+          <div class="sp-name">${esc(p.name)}</div>
+          <div class="sp-nat">${p.nat}</div>
+        </div>`).join('');
+    });
+  } else {
+    squadHtml = '<div class="loading-row" style="grid-column:1/-1">Состав недоступен</div>';
+  }
+
+  document.getElementById('clubModalContent').innerHTML = `
+    <div class="club-header">
+      <img class="club-crest-lg" src="${crestUrl}" onerror="this.style.opacity='.1'" alt="">
+      <div>
+        <div class="club-meta-name">${esc(name)}</div>
+        <div class="club-meta-sub">Тренер: ${coachName} &nbsp;·&nbsp; Стадион: ${venue} &nbsp;·&nbsp; Основан: ${founded}</div>
+      </div>
+    </div>
+    <div class="club-stats-row">
+      <div class="club-stat"><div class="club-stat-val">${stRow.pts||'—'}<span> оч</span></div><div class="club-stat-lbl">Очки</div></div>
+      <div class="club-stat"><div class="club-stat-val">${stRow.gf||'—'}<span> г</span></div><div class="club-stat-lbl">Голы забитые</div></div>
+      <div class="club-stat"><div class="club-stat-val">${stRow.ga||'—'}<span> п</span></div><div class="club-stat-lbl">Голы пропущенные</div></div>
+      <div class="club-stat"><div class="club-stat-val">${stRow.w||'—'}<span>В</span></div><div class="club-stat-lbl">Победы</div></div>
+    </div>
+    <div class="squad-grid">${squadHtml}</div>`;
+}
+
+// ═══════════════════════════════════════════
+// PLAYER STATS MODAL
+// ═══════════════════════════════════════════
+function openPlayerStats(name, club, clubId, goals, assists, nat) {
+  const seed = name.charCodeAt(0)*31 + name.charCodeAt(1||0)*17;
+  const rand = (min,max) => Math.floor(((seed*37+min*13)%(max-min))+min);
+  const matches = rand(18,30);
+  const mins    = rand(1200,2400);
+  const rating  = (6+Math.random()*3).toFixed(1);
+
+  document.getElementById('playerModal').classList.add('open');
+  document.getElementById('playerModalContent').innerHTML = `
+    <div class="player-modal-header">
+      <div class="player-avatar-lg">${name.split(' ').map(x=>x[0]).slice(0,2).join('')}</div>
+      <div>
+        <div class="modal-title">${esc(name)}</div>
+        <div class="modal-sub">${nat} &nbsp;·&nbsp; <img src="https://crests.football-data.org/${clubId}.png" style="width:16px;height:16px;vertical-align:middle;object-fit:contain" onerror="this.style.display='none'"> ${esc(club)}</div>
+      </div>
+    </div>
+    <div class="player-stats-grid">
+      <div class="ps-item"><div class="ps-val">${goals||rand(3,20)}</div><div class="ps-lbl">Голов</div></div>
+      <div class="ps-item"><div class="ps-val">${assists||rand(2,14)}</div><div class="ps-lbl">Ассистов</div></div>
+      <div class="ps-item"><div class="ps-val">${matches}</div><div class="ps-lbl">Матчей</div></div>
+      <div class="ps-item"><div class="ps-val">${rating}</div><div class="ps-lbl">Рейтинг</div></div>
+    </div>
+    <div class="ps-bar-wrap">
+      ${[
+        ['Удары в створ','%',rand(40,82)],
+        ['Точность передач','%',rand(72,95)],
+        ['Единоборства','%',rand(44,78)],
+        ['Давление (PPDA)','',rand(50,90)],
+        ['Пробег, км','',rand(60,95)],
+      ].map(([l,,v])=>`
+        <div class="ps-bar-row">
+          <div class="ps-bar-label">${l}</div>
+          <div class="ps-bar-track"><div class="ps-bar-fill" style="width:${v}%"></div></div>
+          <div class="ps-bar-val">${v}${l.includes('%')?'%':''}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// LEGENDS MODAL
+// ═══════════════════════════════════════════
+const LEGENDS = {
+  ronaldo: {
+    name:'Cristiano Ronaldo',club:'Al Nassr',nat:'🇵🇹',pos:'Нападающий',
+    goals:911,assists:252,matches:1150,rating:'9.2',
+    bars:[['Завершение','%',98],['Скорость','%',96],['Дриблинг','%',92],['Удары','%',97],['Физическая форма','%',99]]
+  },
+  messi: {
+    name:'Lionel Messi',club:'Inter Miami',nat:'🇦🇷',pos:'Плеймейкер',
+    goals:841,assists:360,matches:1050,rating:'9.8',
+    bars:[['Дриблинг','%',99],['Видение поля','%',98],['Завершение','%',97],['Передачи','%',96],['Свободные удары','%',98]]
+  },
+  giggs: {
+    name:'Ryan Giggs',club:'Man United',nat:'🏴󠁧󠁢󠁷󠁬󠁳󠁿',pos:'Левый вингер',
+    goals:168,assists:261,matches:963,rating:'8.9',
+    bars:[['Дриблинг','%',95],['Кросс','%',94],['Скорость','%',93],['Ассисты','%',92],['Стабильность','%',99]]
+  }
+};
+function openPlayerLegend(key) {
+  const p = LEGENDS[key];
+  document.getElementById('playerModal').classList.add('open');
+  document.getElementById('playerModalContent').innerHTML = `
+    <div class="player-modal-header">
+      <div class="player-avatar-lg">${p.name.split(' ').map(x=>x[0]).slice(0,2).join('')}</div>
+      <div>
+        <div class="modal-title">${esc(p.name)}</div>
+        <div class="modal-sub">${p.nat} &nbsp;·&nbsp; ${p.pos} &nbsp;·&nbsp; ${esc(p.club)}</div>
+      </div>
+    </div>
+    <div class="player-stats-grid">
+      <div class="ps-item"><div class="ps-val">${p.goals}</div><div class="ps-lbl">Голов</div></div>
+      <div class="ps-item"><div class="ps-val">${p.assists}</div><div class="ps-lbl">Ассистов</div></div>
+      <div class="ps-item"><div class="ps-val">${p.matches}</div><div class="ps-lbl">Матчей</div></div>
+      <div class="ps-item"><div class="ps-val">${p.rating}</div><div class="ps-lbl">Рейтинг</div></div>
+    </div>
+    <div class="ps-bar-wrap">
+      ${p.bars.map(([l,,v])=>`
+        <div class="ps-bar-row">
+          <div class="ps-bar-label">${l}</div>
+          <div class="ps-bar-track"><div class="ps-bar-fill" style="width:${v}%"></div></div>
+          <div class="ps-bar-val">${v}%</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// LIVE TICKER
+// ═══════════════════════════════════════════
+let liveScores = [];
+function startLiveTicker(matches) {
+  liveScores = matches.map(m=>({...m}));
+  renderTicker();
+  clearInterval(liveTimer);
+  liveTimer = setInterval(()=>{
+    liveScores.forEach(m=>{
+      if(!m.live) return;
+      const mins = parseInt(m.min)||45;
+      if(mins<90){m.min=(mins+Math.floor(Math.random()*2+1))+"'";}
+      if(Math.random()<.05){if(Math.random()<.55)m.hs++;else m.as++;}
+    });
+    renderTicker();
+  },9000);
+}
+function renderTicker() {
+  const items = liveScores.map(m=>
+    `<span class="ticker-item"><span class="ld"></span>${esc(m.h)} <span class="sc">${m.hs} – ${m.as}</span> ${esc(m.a)} · ${m.min}</span>`
+  );
+  const html = items.join('') + items.join('');
+  document.getElementById('tickerTrack').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+// AUTH MODAL
+// ═══════════════════════════════════════════
+function openAuth(tab) {
+  document.getElementById('authModal').classList.add('open');
+  switchAuth(tab);
+}
+function switchAuth(tab) {
+  document.getElementById('authFormLogin').style.display    = tab==='login'   ?'block':'none';
+  document.getElementById('authFormRegister').style.display = tab==='register'?'block':'none';
+  document.getElementById('mt1').classList.toggle('active',tab==='login');
+  document.getElementById('mt2').classList.toggle('active',tab==='register');
+  document.getElementById('authSub').textContent = tab==='login'?'Войдите в аккаунт':'Создайте бесплатный аккаунт';
+}
+function submitAuth(type) {
+  const form = document.getElementById('authForm'+type.charAt(0).toUpperCase()+type.slice(1));
+  const inputs = form.querySelectorAll('.form-input');
+  if([...inputs].some(i=>!i.value.trim())){toast('Заполните все поля','info');return;}
+  close1('authModal');
+  toast(type==='login'?'Добро пожаловать!':'Аккаунт создан!','ok');
+}
+
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+function closeOverlay(e, id) { if(e.target===e.currentTarget) close1(id); }
+function close1(id) { document.getElementById(id).classList.remove('open'); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function toast(msg, type) {
+  const box = document.getElementById('toastBox');
+  const t = document.createElement('div');
+  t.className = 'toast '+(type||'info');
+  t.textContent = msg;
+  box.appendChild(t);
+  setTimeout(()=>{ t.style.transition='opacity .35s'; t.style.opacity='0'; setTimeout(()=>t.remove(),350); },2600);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') ['clubModal','playerModal','authModal'].forEach(id=>close1(id));
+});
+
+// Resize redraws
+window.addEventListener('resize', ()=>{ drawXGChart(); drawFormChart(); });
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+loadCompetition('PL');
+</script>
+</body>
+</html>
