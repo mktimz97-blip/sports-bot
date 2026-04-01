@@ -1,0 +1,28 @@
+{
+  "name": "ruflo-v3",
+  "version": "3.5.0",
+  "description": "RuFlo V3.5 AI Ecosystem - DDD Architecture with Multi-Agent Swarm",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/",
+    "dev": "ts-node src/index.ts",
+    "swarm:start": "npx @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 8",
+    "security:scan": "npx @claude-flow/cli@latest security scan",
+    "memory:status": "npx @claude-flow/cli@latest memory list"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^9.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "@types/jest": "^29.0.0",
+    "eslint": "^9.0.0",
+    "ts-node": "^10.9.0"
+  }
+}

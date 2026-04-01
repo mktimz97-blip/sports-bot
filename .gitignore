@@ -40,5 +40,8 @@ node_modules/
 fix_python.ps1
 install_python.ps1
 
+# External repos (cloned, not committed)
+integrations/zie619-workflows/
+
 # HTML site (отдельный деплой при необходимости)
 # index.html  <-- оставляем, это часть проекта

@@ -1,0 +1,24 @@
+{
+  "n8n": {
+    "baseUrl": "http://localhost:5678",
+    "apiKey": "${N8N_API_KEY}",
+    "webhookPath": "ruflo",
+    "autoStart": true
+  },
+  "zie619": {
+    "repoPath": "./integrations/zie619-workflows",
+    "autoImport": ["telegram", "github", "ai", "monitoring"],
+    "maxWorkflows": 50
+  },
+  "qwen": {
+    "baseUrl": "http://localhost:11434",
+    "model": "qwen3:8b",
+    "maxTokens": 2048,
+    "temperature": 0.3
+  },
+  "routing": {
+    "tier1_threshold": 10,
+    "tier2_threshold": 30,
+    "fallback_to_cloud": true
+  }
+}
