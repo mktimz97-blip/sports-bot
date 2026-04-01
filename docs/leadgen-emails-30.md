@@ -1,13 +1,12 @@
-# TZAI LeadGen — 60 Email Templates (30 companies x 2 languages)
+# TZAI LeadGen — 30 Email Templates
 ## Status: AWAITING APPROVAL
 
 ---
 
-## РОССИЯ
+## РОССИЯ (РФ + СНГ формат: RU + EN + одна подпись)
 
 ### #1 — IDFLY Digital Lab (Новосибирск)
-
-**RU — Тема: Ваши DevOps-процессы съедают время команды**
+**Тема: Ваши DevOps-процессы съедают время команды / Your DevOps pipeline is eating your team's time**
 
 Привет IDFLY!
 
@@ -15,13 +14,7 @@
 Мы автоматизировали CI/CD и проектный трекинг для похожих студий — они сэкономили 18 часов в неделю и убрали 90% ручных операций.
 Могу показать за 15 минут как это работает для вашей команды?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Your DevOps pipeline is eating your team's time**
+---
 
 Hi IDFLY team,
 
@@ -32,14 +25,14 @@ Can I show you a 15-min demo of how this works for your setup?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #2 — Ingate (Москва)
-
-**RU — Тема: 150 человек, 40+ клиентов — и всё вручную?**
+**Тема: 150 человек, 40+ клиентов — и всё вручную? / Scaling 40+ client campaigns manually at 150 people?**
 
 Привет Ingate!
 
@@ -47,13 +40,7 @@ timur.ziyoev@mail.ru
 Мы помогли агентствам вашего размера автоматизировать отчётность и управление кампаниями — экономия $8,200/мес и 30 часов в неделю.
 Можем обсудить за 15 минут — как это применить к Ingate?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Scaling 40+ client campaigns manually at 150 people?**
+---
 
 Hi Ingate team,
 
@@ -64,14 +51,14 @@ Can I show you in 15 minutes how this applies to Ingate?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #3 — DELTA (Санкт-Петербург)
-
-**RU — Тема: B2B-аналитика для клиентов — 10 часов или 10 минут?**
+**Тема: B2B-аналитика для клиентов — 10 часов или 10 минут? / B2B analytics reports — 10 hours or 10 minutes?**
 
 Привет DELTA!
 
@@ -79,13 +66,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали аналитику для B2B-агентств — отчёты генерируются за минуты вместо часов, клиенты получают дашборд в реальном времени.
 15 минут вашего времени — покажу как это работает?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: B2B analytics reports — 10 hours or 10 minutes?**
+---
 
 Hi DELTA team,
 
@@ -96,14 +77,14 @@ Can I show you how this works in a quick 15-min call?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #4 — Skyway Media (Санкт-Петербург)
-
-**RU — Тема: PPC-кампании без AI — это деньги на ветер**
+**Тема: PPC-кампании без AI — это деньги на ветер / PPC without AI = 30% wasted budget**
 
 Привет Skyway Media!
 
@@ -111,13 +92,7 @@ timur.ziyoev@mail.ru
 Наши AI-агенты оптимизируют ставки 24/7 — клиенты получают на 35% больше конверсий при том же бюджете.
 Покажу за 15 минут — интересно?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: PPC without AI = 30% wasted budget**
+---
 
 Hi Skyway Media,
 
@@ -128,14 +103,14 @@ Can I show you in 15 minutes how this works?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #5 — 1С-Рарус Казань (Казань)
-
-**RU — Тема: Интеграции между системами 1С — 60% времени вашей команды**
+**Тема: Интеграции 1С — 60% времени вашей команды / 1C integrations eating 60% of your team's time**
 
 Привет 1С-Рарус Казань!
 
@@ -143,13 +118,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали подобные процессы для IT-компаний — сэкономили 25 часов в неделю на каждого интегратора.
 15 минут — покажу конкретный кейс?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: 1C integrations eating 60% of your team's time**
+---
 
 Hi 1C-Rarus Kazan,
 
@@ -160,14 +129,14 @@ Can I show you a specific case study in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #6 — Osahanin (Москва)
-
-**RU — Тема: E-commerce разработка без автоматизации = потерянные дедлайны**
+**Тема: E-commerce разработка без автоматизации = сорванные дедлайны / E-commerce dev without automation = missed deadlines**
 
 Привет Osahanin!
 
@@ -175,13 +144,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали workflow для e-commerce студий — они сократили time-to-market на 40% и перестали срывать дедлайны.
 Могу показать за 15 минут?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: E-commerce dev without automation = missed deadlines**
+---
 
 Hi Osahanin,
 
@@ -192,14 +155,14 @@ Can I show you how in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #7 — SkillCap (Москва)
-
-**RU — Тема: QA и релизы вручную — сколько багов проскакивает?**
+**Тема: QA и релизы вручную — сколько багов проскакивает? / Manual QA for mobile games — how many bugs slip through?**
 
 Привет SkillCap!
 
@@ -207,13 +170,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали тестирование и CI/CD для gamedev-студий — 80% багов ловятся автоматически до релиза.
 15 минут — покажу как это работает?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Manual QA for mobile games — how many bugs slip through?**
+---
 
 Hi SkillCap,
 
@@ -224,14 +181,14 @@ Can I show you how this works in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #8 — Novosibirsk Mobile Dev (Новосибирск)
-
-**RU — Тема: Ручное тестирование и релиз = потерянное время**
+**Тема: Ручное тестирование перед релизом = потерянное время / Manual testing before every release = lost time**
 
 Привет!
 
@@ -239,13 +196,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали тестирование для мобильных команд — они выпускают релизы в 3 раза быстрее без потери качества.
 Могу показать за 15 минут — интересно?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Manual testing before every release = lost time**
+---
 
 Hi there,
 
@@ -256,16 +207,16 @@ Can I show you how in a 15-min demo?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
-## США
+## США (только английский)
 
 ### #9 — Detect-It AI (Michigan)
-
-**EN — Subject: Your AI data pipeline has manual bottlenecks**
+**Subject: Your AI data pipeline has manual bottlenecks**
 
 Hi Detect-It team,
 
@@ -277,27 +228,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Ваш AI-пайплайн данных имеет ручные узкие места**
-
-Привет Detect-It!
-
-Нравится что вы делаете с AI для бизнеса — но обработка данных клиентов наверняка имеет ручные этапы которые тормозят процесс.
-Мы автоматизировали data-пайплайны для AI-компаний — они обрабатывают в 10 раз больше данных без ручного вмешательства, экономя $5,400/мес.
-Могу показать за 15 минут?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #10 — Softermii (New York)
-
-**EN — Subject: 80 developers, manual project reporting — there's a better way**
+**Subject: 80 developers, manual project reporting — there's a better way**
 
 Hi Softermii,
 
@@ -309,27 +246,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: 80 разработчиков, ручная отчётность — можно лучше**
-
-Привет Softermii!
-
-С 80+ инженерами и несколькими клиентскими проектами ваши PM наверняка тратят 15+ часов в неделю на статус-отчёты и трекинг ресурсов.
-Мы автоматизировали отчётность для dev-агентств вашего размера — экономия $7,200/мес, PM фокусируются на доставке.
-Покажу за 15 минут как это работает?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #11 — GSG Talent Solutions (Austin, TX)
-
-**EN — Subject: Screening 200 resumes manually = 3 missed hires/month**
+**Subject: Screening 200 resumes manually = 3 missed hires/month**
 
 Hi GSG team,
 
@@ -341,27 +264,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: 200 резюме вручную = 3 упущенных найма в месяц**
-
-Привет GSG!
-
-IT-стаффинг значит сотни резюме в неделю — ручной скрининг стоит вам лучших кандидатов которые принимают другие оферы первыми.
-Мы автоматизировали скрининг для стаффинг-фирм — сократили время отбора на 75% и увеличили rate трудоустройства на 28%.
-15 минут — покажу как?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #12 — DGT27 (Austin, TX)
-
-**EN — Subject: Salesforce migrations — 3 days or 3 hours?**
+**Subject: Salesforce migrations — 3 days or 3 hours?**
 
 Hi DGT27,
 
@@ -373,27 +282,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Миграции Salesforce — 3 дня или 3 часа?**
-
-Привет DGT27!
-
-Salesforce-консалтинг — это миграции данных, кастомные настройки и отчётность клиентам — всё вручную.
-Мы автоматизировали миграционные процессы для CRM-консультантов — проекты завершаются на 60% быстрее, ошибки данных исключены.
-Могу показать за 15 минут?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #13 — TaskRhino (New York)
-
-**EN — Subject: You help others with workflows — but who automates yours?**
+**Subject: You help others with workflows — but who automates yours?**
 
 Hi TaskRhino,
 
@@ -405,29 +300,15 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Вы помогаете другим с workflow — а кто автоматизирует ваши?**
-
-Привет TaskRhino!
-
-Отличная ирония — вы помогаете компаниям оптимизировать процессы, но ваши собственные наверняка всё ещё имеют ручные участки.
-Мы помогли workflow-компаниям автоматизировать внутренние операции — экономия $4,100/мес на собственных расходах.
-15 минут обменяемся опытом?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
-## ЕВРОПА
+## ЕВРОПА (только английский)
 
 ### #14 — ACID21 GmbH (Берлин)
-
-**EN — Subject: 1,000 projects in 20 years — imagine if each took 40% less time**
+**Subject: 1,000 projects in 20 years — imagine if each took 40% less time**
 
 Hi ACID21,
 
@@ -439,27 +320,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: 1,000 проектов за 20 лет — представьте если каждый займёт на 40% меньше**
-
-Привет ACID21!
-
-20 лет и 1,000+ проектов — впечатляет, но каждый проект до сих пор требует ручной координации команды из 25 человек.
-Мы автоматизировали workflow для агентств вашего размера — сократили время доставки на 40% и увеличили пропускную способность на 30%.
-15 минут — стоит взглянуть?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #15 — 4TFM (Берлин)
-
-**EN — Subject: Shopify migrations — automate the repetitive 80%**
+**Subject: Shopify migrations — automate the repetitive 80%**
 
 Hi 4TFM,
 
@@ -471,27 +338,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Миграции Shopify — автоматизируйте повторяющиеся 80%**
-
-Привет 4TFM!
-
-Миграции Shopify и кастомизация тем имеют множество повторяющихся шагов которые съедают время команды.
-Мы автоматизировали 80% миграционных процессов для Shopify-агентств — проекты завершаются в 2 раза быстрее с меньшим количеством ошибок.
-Покажу за 15 минут?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #16 — Flatline Agency (Амстердам)
-
-**EN — Subject: Luxury brands demand perfection — AI delivers it consistently**
+**Subject: Luxury brands demand perfection — AI delivers it consistently**
 
 Hi Flatline team,
 
@@ -503,27 +356,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Люксовые бренды требуют идеал — AI обеспечивает его стабильно**
-
-Привет Flatline!
-
-Работа с luxury-брендами означает нулевую погрешность и премиальные ожидания — но ручное управление кампаниями не масштабируется.
-Мы помогли премиальным агентствам автоматизировать отчётность и оптимизацию — качество сохраняется при росте клиентской базы на 50%.
-Стоит 15 минут вашего времени?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #17 — Mobiteam (Берлин)
-
-**EN — Subject: UX testing manually = missed usability issues**
+**Subject: UX testing manually = missed usability issues**
 
 Hi Mobiteam,
 
@@ -535,27 +374,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Ручное UX-тестирование = пропущенные проблемы юзабилити**
-
-Привет Mobiteam!
-
-UX-дизайн и веб-разработка для образования — ручной QA и тестирование задерживают запуски.
-Мы автоматизировали тестирование для UX-агентств — они находят в 3 раза больше проблем и запускаются на 45% быстрее.
-Покажу за 15 минут?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #18 — 10Clouds (Лондон/Варшава)
-
-**EN — Subject: 100 engineers, agile sprints — but where's the AI?**
+**Subject: 100 engineers, agile sprints — but where's the AI?**
 
 Hi 10Clouds,
 
@@ -567,27 +392,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: 100 инженеров, agile-спринты — а где AI?**
-
-Привет 10Clouds!
-
-С 100+ инженерами в agile вы генерируете огромное количество данных спринтов, ретро и обновлений для клиентов — всё обрабатывается вручную.
-Мы автоматизировали agile-процессы для software house вашего размера — экономия 22 часа в неделю на отчётности и планировании.
-15 минут — обсудим?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #19 — LASEO (Амстердам)
-
-**EN — Subject: Manual SEO audits in 2026 — your competitors use AI**
+**Subject: Manual SEO audits in 2026 — your competitors use AI**
 
 Hi LASEO,
 
@@ -599,27 +410,13 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: Ручной SEO-аудит в 2026 — ваши конкуренты используют AI**
-
-Привет LASEO!
-
-100% фокус на SEO — отлично, но ручные аудиты и подбор ключевых слов уже проигрывают AI-анализу.
-Мы помогли SEO-агентствам автоматизировать технические аудиты — они анализируют в 10 раз больше страниц и выдают инсайты в 5 раз быстрее.
-15 минут чтобы показать разницу?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #20 — DEPT Agency (Амстердам)
-
-**EN — Subject: 200+ people, B Corp certified — but internal processes still manual?**
+**Subject: 200+ people, B Corp certified — but internal processes still manual?**
 
 Hi DEPT,
 
@@ -631,29 +428,15 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**RU — Тема: 200+ человек, B Corp — а внутренние процессы всё ещё ручные?**
-
-Привет DEPT!
-
-Впечатляющий масштаб и B Corp сертификация — но с 200+ сотрудниками операционные расходы растут экспоненциально без автоматизации.
-Мы помогли крупным агентствам автоматизировать внутренние процессы — экономия $12,000/мес при сохранении стандартов качества.
-Стоит 15-минутного разговора?
-
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
-## КАЗАХСТАН
+## КАЗАХСТАН (РФ + СНГ формат: RU + EN + одна подпись)
 
 ### #21 — GenLead (Астана)
-
-**RU — Тема: Ручное управление Google Ads — вы теряете 25% бюджета клиентов**
+**Тема: Ручное управление Google Ads — вы теряете 25% бюджета / Manual Google Ads = 25% wasted budget**
 
 Привет GenLead!
 
@@ -661,13 +444,7 @@ timur.ziyoev@mail.ru
 Наши AI-агенты оптимизируют кампании 24/7 — клиенты получают на 30% больше конверсий при том же бюджете.
 15 минут — покажу как это работает?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Manual Google Ads management = 25% wasted client budget**
+---
 
 Hi GenLead,
 
@@ -678,14 +455,14 @@ Our AI agents optimize campaigns 24/7 — clients get 30% more conversions at th
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #22 — The Foundry (Алматы)
-
-**RU — Тема: Скаутинг стартапов вручную — вы пропускаете лучшие возможности**
+**Тема: Скаутинг стартапов вручную — вы пропускаете лучших / Manual startup scouting = missed opportunities**
 
 Привет The Foundry!
 
@@ -693,13 +470,7 @@ IT-хаб и инвестиции — это отличная модель, но
 Мы автоматизировали воронку deal flow для инвестфондов — они находят в 4 раза больше качественных стартапов при тех же ресурсах.
 Обсудим за 15 минут?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Manual startup scouting = missed opportunities**
+---
 
 Hi Foundry team,
 
@@ -710,14 +481,14 @@ Can we discuss in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #23 — Продвижение.kz (Алматы)
-
-**RU — Тема: Каждый сайт с нуля — а если автоматизировать 60%?**
+**Тема: Каждый сайт с нуля — а если автоматизировать 60%? / Every website from scratch — what if you automated 60%?**
 
 Привет Продвижение.kz!
 
@@ -725,15 +496,9 @@ timur.ziyoev@mail.ru
 Мы автоматизировали типовые задачи для веб-студий — они выпускают проекты в 2 раза быстрее и берут больше заказов.
 Покажу за 15 минут?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
+---
 
-**EN — Subject: Every website from scratch — what if you automated 60%?**
-
-Hi Продвижение.kz,
+Hi there,
 
 Turnkey website development — but each project starts manually from scratch, even though 60% of tasks are repetitive.
 We automated routine tasks for web studios — they deliver projects 2x faster and take on more clients.
@@ -742,14 +507,14 @@ We automated routine tasks for web studios — they deliver projects 2x faster a
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #24 — DeoniX (Алматы)
-
-**RU — Тема: Интеграция данных для клиентов — автоматизируйте рутину**
+**Тема: Интеграция данных для клиентов — автоматизируйте рутину / Enterprise data integration — automate the grunt work**
 
 Привет DeoniX!
 
@@ -757,13 +522,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали data-интеграции для IT-компаний — сократили время проектов на 55% и снизили ошибки до нуля.
 15 минут — обсудим?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Enterprise data integration — automate the grunt work**
+---
 
 Hi DeoniX,
 
@@ -774,14 +533,14 @@ We automated data integrations for IT companies — cutting project time by 55% 
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #25 — MediaPort (Алматы)
-
-**RU — Тема: Ручное медиапланирование — ваши менеджеры тратят 70% времени на рутину**
+**Тема: Ручное медиапланирование — 70% времени на рутину / Manual media planning — 70% on routine**
 
 Привет MediaPort!
 
@@ -789,13 +548,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали операционку для рекламных агентств — экономия 20 часов в неделю, менеджеры фокусируются на креативе.
 15 минут — покажу?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Manual media planning — your managers spend 70% on routine**
+---
 
 Hi MediaPort,
 
@@ -806,16 +559,16 @@ We automated operations for ad agencies — saving 20 hours/week, managers focus
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
-## УЗБЕКИСТАН
+## УЗБЕКИСТАН (РФ + СНГ формат)
 
 ### #26 — Progressive Media (Ташкент)
-
-**RU — Тема: Digital-агентство в Ташкенте — автоматизируйте управление проектами**
+**Тема: Digital-агентство — половина дня уходит на управление / Project management eats half your day**
 
 Привет Progressive Media!
 
@@ -823,13 +576,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали проектный менеджмент для агентств — экономия 15 часов в неделю, клиенты получают отчёты автоматически.
 Покажу за 15 минут?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: Tashkent's digital agency — automate your project management**
+---
 
 Hi Progressive Media,
 
@@ -840,14 +587,14 @@ Can I show you in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #27 — Scalesta (Ташкент)
-
-**RU — Тема: E-commerce хостинг — ручная поддержка не масштабируется**
+**Тема: E-commerce хостинг — ручная поддержка не масштабируется / Manual support doesn't scale**
 
 Привет Scalesta!
 
@@ -855,13 +602,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали поддержку для хостинг-компаний — 60% тикетов решаются AI автоматически, время простоя сократилось на 80%.
 15 минут — интересно?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: E-commerce hosting — manual support doesn't scale**
+---
 
 Hi Scalesta,
 
@@ -872,28 +613,22 @@ We automated support for hosting companies — 60% of tickets resolved by AI aut
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #28 — Infonex (Ташкент)
-
-**RU — Тема: IT-сервисы в Ташкенте — клиенты ждут ответа часами**
+**Тема: Клиенты ждут ответа часами / Clients wait hours for answers**
 
 Привет Infonex!
 
 IT-сервисы — это постоянный поток запросов от клиентов, и ручная обработка не позволяет расти.
-Мы автоматизировали обработку запросов для IT-компаний — время ответа сократилось с часов до минут, клиентская удовлетворённость выросла на 40%.
+Мы автоматизировали обработку запросов для IT-компаний — время ответа сократилось с часов до минут, удовлетворённость клиентов выросла на 40%.
 Могу показать за 15 минут?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: IT services in Tashkent — clients wait hours for answers**
+---
 
 Hi Infonex,
 
@@ -904,16 +639,16 @@ Can I show you in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
-## ТАДЖИКИСТАН
+## ТАДЖИКИСТАН (РФ + СНГ формат)
 
 ### #29 — Spitamen IT (Душанбе)
-
-**RU — Тема: IT-сервисы в Душанбе — автоматизация удвоит вашу пропускную способность**
+**Тема: Автоматизация удвоит вашу пропускную способность / Automation doubles your capacity**
 
 Привет Spitamen IT!
 
@@ -921,13 +656,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали тикет-систему для IT-компаний вашего размера — они удвоили количество обслуживаемых клиентов без найма новых сотрудников.
 Покажу за 15 минут?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: IT services in Dushanbe — automation doubles your capacity**
+---
 
 Hi Spitamen IT,
 
@@ -938,14 +667,14 @@ We automated ticketing for IT companies your size — they doubled client capaci
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
 ### #30 — Mino.tj (Душанбе)
-
-**RU — Тема: IT-каталог в Таджикистане — AI сделает модерацию за вас**
+**Тема: AI сделает модерацию каталога за вас / Let AI handle your directory moderation**
 
 Привет Mino.tj!
 
@@ -953,13 +682,7 @@ timur.ziyoev@mail.ru
 Мы автоматизировали модерацию и обновление данных для каталогов — экономия 10 часов в неделю, актуальность данных 99%.
 15 минут — покажу как?
 
-Timur Alisherovich
-CEO, TZAI Company Group
-Telegram: @Salvatore_Lazzaro
-Тел: +7 905 506 61 55
-timur.ziyoev@mail.ru
-
-**EN — Subject: IT directory in Tajikistan — let AI handle moderation**
+---
 
 Hi Mino.tj,
 
@@ -970,13 +693,22 @@ Can I show you in 15 minutes?
 Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
-Phone: +7 905 506 61 55
-timur.ziyoev@mail.ru
+Тел/Phone: +7 905 506 61 55
+tzai.flow@mail.ru
+https://mktimz97-blip.github.io/tzai-website/
 
 ---
 
-## ИТОГО: 60 писем (30 компаний x 2 языка)
+## ИТОГО: 30 писем
+
+| Регион | Компаний | Формат | Языки |
+|--------|----------|--------|-------|
+| Россия | 8 | RU + EN + подпись | двуязычные |
+| США | 5 | EN only | английский |
+| Европа | 7 | EN only | английский |
+| Казахстан | 5 | RU + EN + подпись | двуязычные |
+| Узбекистан | 3 | RU + EN + подпись | двуязычные |
+| Таджикистан | 2 | RU + EN + подпись | двуязычные |
 
 **Status: AWAITING APPROVAL**
-
 Ни одно письмо не будет отправлено без вашего одобрения.
