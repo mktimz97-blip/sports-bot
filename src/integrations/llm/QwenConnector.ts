@@ -1,19 +1,23 @@
 /**
- * Qwen 3.5 Local LLM Connector via Ollama
- * Cheap local inference for Tier 2 tasks (simple code transforms, docs, etc.)
+ * Qwen 3.5 Connector via OpenRouter (OpenAI-compatible)
+ * Low-cost cloud inference for Tier 2 tasks (code transforms, docs, reviews)
  *
  * ADR-026: 3-Tier Model Routing
- *   Tier 1: Agent Booster (WASM) — <1ms, $0
- *   Tier 2: Qwen 3.5 (local)    — ~2s,  $0   ← THIS
- *   Tier 3: Claude Opus/Sonnet   — 2-5s, $$$
+ *   Tier 1: Agent Booster (WASM)     — <1ms, $0
+ *   Tier 2: Qwen 3.5 (OpenRouter)    — ~1-3s, ~$0.0004/req  ← THIS
+ *   Tier 3: Claude Opus/Sonnet       — 2-5s, $$$
+ *
+ * API: https://openrouter.ai/api/v1 (OpenAI-compatible)
+ * Auth: OPENROUTER_API_KEY env variable
  */
 
 import { Result, ok, err } from '../../shared/types/Result';
 import { createEvent, DomainEvent } from '../../shared/events/DomainEvent';
 
 export interface QwenConfig {
-  baseUrl: string;       // Ollama API, default http://localhost:11434
-  model: string;         // qwen3:8b or qwen3:0.6b
+  baseUrl: string;       // OpenRouter endpoint
+  model: string;         // qwen/qwen3.5-122b-a10b via OpenRouter
+  apiKey: string;        // from env OPENROUTER_API_KEY
   maxTokens: number;
   temperature: number;
 }
@@ -23,19 +27,20 @@ export interface LlmResponse {
   model: string;
   tokensUsed: number;
   latencyMs: number;
-  cost: number;          // Always $0 for local
+  cost: number;
 }
 
 export interface LlmStats {
   totalRequests: number;
   totalTokens: number;
   avgLatencyMs: number;
-  savedVsCloud: number;  // $ saved vs using cloud API
+  savedVsCloud: number;  // $ saved vs using Claude
 }
 
 const DEFAULT_CONFIG: QwenConfig = {
-  baseUrl: 'http://localhost:11434',
-  model: 'qwen3:8b',
+  baseUrl: 'https://openrouter.ai/api/v1',
+  model: 'qwen/qwen3.5-122b-a10b',
+  apiKey: '',
   maxTokens: 2048,
   temperature: 0.3,
 };
@@ -47,28 +52,39 @@ export class QwenConnector {
   private isAvailable = false;
 
   constructor(config: Partial<QwenConfig> = {}) {
-    this.config = { ...DEFAULT_CONFIG, ...config };
+    this.config = {
+      ...DEFAULT_CONFIG,
+      ...config,
+      apiKey: config.apiKey || process.env.OPENROUTER_API_KEY || '',
+    };
   }
 
   /**
-   * Check if Ollama + Qwen is running
+   * Check if DashScope API is reachable and authenticated
    */
   async healthCheck(): Promise<Result<boolean>> {
-    try {
-      const resp = await fetch(`${this.config.baseUrl}/api/tags`);
-      if (!resp.ok) return ok(false);
+    if (!this.config.apiKey) {
+      this.isAvailable = false;
+      this.events.push(createEvent('QwenHealthCheck', 'system', {
+        available: false,
+        reason: 'OPENROUTER_API_KEY not set',
+      }));
+      return ok(false);
+    }
 
-      const data = await resp.json() as { models?: { name: string }[] };
-      const models = data.models || [];
-      const hasQwen = models.some((m) => m.name.includes('qwen'));
-      this.isAvailable = hasQwen;
+    try {
+      const resp = await fetch(`${this.config.baseUrl}/models`, {
+        headers: { 'Authorization': `Bearer ${this.config.apiKey}` },
+      });
+      this.isAvailable = resp.ok;
 
       this.events.push(createEvent('QwenHealthCheck', 'system', {
-        available: hasQwen,
-        models: models.map((m) => m.name),
+        available: resp.ok,
+        model: this.config.model,
+        endpoint: this.config.baseUrl,
       }));
 
-      return ok(hasQwen);
+      return ok(resp.ok);
     } catch {
       this.isAvailable = false;
       return ok(false);
@@ -76,59 +92,72 @@ export class QwenConnector {
   }
 
   /**
-   * Generate text with Qwen (Tier 2 handler)
+   * Generate text with Qwen via DashScope (OpenAI-compatible chat/completions)
    */
   async generate(prompt: string, systemPrompt?: string): Promise<Result<LlmResponse>> {
+    if (!this.config.apiKey) {
+      return err(new Error('OPENROUTER_API_KEY not set — add it to .env'));
+    }
+
     const start = Date.now();
 
     try {
-      const resp = await fetch(`${this.config.baseUrl}/api/generate`, {
+      const resp = await fetch(`${this.config.baseUrl}/chat/completions`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.config.apiKey}`,
+        },
         body: JSON.stringify({
           model: this.config.model,
-          prompt,
-          system: systemPrompt || 'You are a helpful coding assistant.',
-          options: {
-            num_predict: this.config.maxTokens,
-            temperature: this.config.temperature,
-          },
-          stream: false,
+          messages: [
+            { role: 'system', content: systemPrompt || 'You are a helpful coding assistant.' },
+            { role: 'user', content: prompt },
+          ],
+          max_tokens: this.config.maxTokens,
+          temperature: this.config.temperature,
         }),
       });
 
       if (!resp.ok) {
-        return err(new Error(`Qwen API error: ${resp.status}`));
+        const body = await resp.text();
+        return err(new Error(`OpenRouter API error ${resp.status}: ${body.substring(0, 200)}`));
       }
 
-      const data = await resp.json() as { response: string; eval_count?: number };
+      const data = await resp.json() as {
+        choices: { message: { content: string } }[];
+        usage?: { total_tokens?: number; completion_tokens?: number };
+      };
       const latencyMs = Date.now() - start;
-      const tokensUsed = data.eval_count || Math.ceil(data.response.length / 4);
+      const text = data.choices?.[0]?.message?.content || '';
+      const tokensUsed = data.usage?.total_tokens || Math.ceil(text.length / 4);
 
-      // Cloud equivalent cost (Claude Haiku ~$0.0002/req)
-      const cloudCost = 0.0002;
+      // Qwen-plus cost ~$0.0004/1K tokens vs Claude ~$0.003-0.015
+      const qwenCost = tokensUsed * 0.0000004;
+      const claudeCost = tokensUsed * 0.000003;
       this.stats.totalRequests++;
       this.stats.totalTokens += tokensUsed;
-      this.stats.savedVsCloud += cloudCost;
+      this.stats.savedVsCloud += (claudeCost - qwenCost);
       this.stats.avgLatencyMs = (this.stats.avgLatencyMs * (this.stats.totalRequests - 1) + latencyMs) / this.stats.totalRequests;
 
       const response: LlmResponse = {
-        text: data.response,
+        text,
         model: this.config.model,
         tokensUsed,
         latencyMs,
-        cost: 0,
+        cost: qwenCost,
       };
 
       this.events.push(createEvent('QwenGenerated', 'system', {
         tokensUsed,
         latencyMs,
         promptLength: prompt.length,
+        cost: qwenCost,
       }));
 
       return ok(response);
     } catch (e) {
-      return err(new Error(`Qwen generation failed: ${(e as Error).message}`));
+      return err(new Error(`OpenRouter request failed: ${(e as Error).message}`));
     }
   }
 

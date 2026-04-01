@@ -24,7 +24,7 @@ async function main() {
 ║   RuFlo V3.5 — Полная экосистема с интеграциями                     ║
 ║                                                                      ║
 ║   n8n        →  4300+ автоматизаций (Zie619 коллекция)              ║
-║   Qwen 3.5   →  Локальный AI (бесплатно, $0/запрос)                ║
+║   Qwen 3.5   →  OpenRouter API (qwen3.5-122b, ~$0.0004/req)        ║
 ║   Swarm      →  6 AI-агентов работают параллельно                   ║
 ║                                                                      ║
 ╚══════════════════════════════════════════════════════════════════════╝
@@ -98,15 +98,15 @@ async function main() {
   await sleep(300);
 
   // ─── 3. Qwen 3.5 Status ────────────────
-  console.log('▸ [3/5] Проверка Qwen 3.5 (локальный LLM)...');
-  const qwen = new QwenConnector({ model: 'qwen3:8b' });
+  console.log('▸ [3/5] Проверка Qwen 3.5 (OpenRouter API)...');
+  const qwen = new QwenConnector({ model: 'qwen/qwen3.5-122b-a10b' });
   const health = await qwen.healthCheck();
 
   if (health.ok && health.value) {
-    console.log('  ✓ Qwen 3.5 доступен на localhost:11434');
+    console.log('  ✓ Qwen 3.5 (122b) доступен через OpenRouter');
   } else {
-    console.log('  ⚠ Ollama не запущен — Qwen работает в симуляции');
-    console.log('  → Для установки: powershell scripts/setup-ollama-qwen.ps1');
+    console.log('  ⚠ OpenRouter API недоступен — установите OPENROUTER_API_KEY в .env');
+    console.log('  → Endpoint: https://openrouter.ai/api/v1');
   }
   console.log('');
 
@@ -182,7 +182,7 @@ async function main() {
 ║   Memory:  Векторная память + HNSW                                  ║
 ║   Security: PASSED (0 уязвимостей)                                  ║
 ║   n8n:     5 workflows (Zie619), все активны                        ║
-║   LLM:     3-Tier Router (WASM → Qwen → Claude)                    ║
+║   LLM:     3-Tier Router (WASM → Qwen OpenRouter → Claude)         ║
 ║                                                                      ║
 ║   Ежемесячная экономия: $7,171                                      ║
 ║   Годовая экономия:     $86,052                                     ║

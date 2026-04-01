@@ -2,9 +2,9 @@
  * 3-Tier Model Router (ADR-026)
  * Routes tasks to the cheapest capable model
  *
- * Tier 1: Agent Booster (WASM) — <1ms, $0, simple transforms
- * Tier 2: Qwen 3.5 (local)    — ~2s,  $0, simple reasoning
- * Tier 3: Claude Opus/Sonnet   — 2-5s, $$$, complex reasoning
+ * Tier 1: Agent Booster (WASM)      — <1ms,  $0,      simple transforms
+ * Tier 2: Qwen 3.5 (OpenRouter)     — ~1-3s, ~$0.0004, simple reasoning
+ * Tier 3: Claude Opus/Sonnet        — 2-5s,  $$$,     complex reasoning
  */
 
 import { QwenConnector, LlmResponse } from './QwenConnector';
@@ -60,9 +60,9 @@ export class ModelRouter {
       const decision: RoutingDecision = {
         tier: 2,
         model: this.qwen.getConfig().model,
-        reason: 'Simple reasoning — routed to local Qwen',
-        estimatedCost: 0,
-        estimatedLatency: '~2s',
+        reason: 'Simple reasoning — routed to Qwen via OpenRouter',
+        estimatedCost: 0.0004,
+        estimatedLatency: '~1-3s',
       };
       this.log(taskDescription, decision);
       return decision;
@@ -145,7 +145,7 @@ export class ModelRouter {
     const tier1 = this.routingLog.filter((r) => r.decision.tier === 1).length;
     const tier2 = this.routingLog.filter((r) => r.decision.tier === 2).length;
     const tier3 = this.routingLog.filter((r) => r.decision.tier === 3).length;
-    const saved = tier1 * 0.0002 + tier2 * 0.0002; // what cloud would cost
+    const saved = tier1 * 0.003 + tier2 * (0.003 - 0.0004); // savings vs Claude Sonnet
 
     return { totalRouted: this.routingLog.length, tier1, tier2, tier3, savedUsd: saved };
   }
