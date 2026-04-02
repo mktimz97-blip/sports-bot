@@ -4,6 +4,7 @@
  */
 
 export { AgentDomain } from './domains/agent/AgentDomain';
+export { LeadAnalyzer } from './domains/agent/LeadAnalyzer';
 export { SwarmDomain } from './domains/swarm/SwarmDomain';
 export { MemoryDomain } from './domains/memory/MemoryDomain';
 export { SecurityDomain } from './domains/security/SecurityDomain';

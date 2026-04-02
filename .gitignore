@@ -45,3 +45,10 @@ integrations/zie619-workflows/
 
 # HTML site (отдельный деплой при необходимости)
 # index.html  <-- оставляем, это часть проекта
+
+# n8n workflows (contain API keys — deploy via script, not git)
+workflows/
+config/n8n-leadfinder-workflow.json
+
+# Scripts with hardcoded credentials
+scripts/send-leads.js

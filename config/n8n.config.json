@@ -1,6 +1,6 @@
 {
   "n8n": {
-    "baseUrl": "http://localhost:5678",
+    "baseUrl": "http://134.122.87.138:5678",
     "apiKey": "${N8N_API_KEY}",
     "webhookPath": "ruflo",
     "autoStart": true
