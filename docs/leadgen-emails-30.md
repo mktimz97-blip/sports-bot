@@ -26,7 +26,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -52,7 +52,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -78,7 +78,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -104,7 +104,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -130,7 +130,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -156,7 +156,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -182,7 +182,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -208,7 +208,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -228,7 +228,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -246,7 +246,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -264,7 +264,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -282,7 +282,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -300,7 +300,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -320,7 +320,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -338,7 +338,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -356,7 +356,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -374,7 +374,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -392,7 +392,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -410,7 +410,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -428,7 +428,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -456,7 +456,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -482,7 +482,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -508,7 +508,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -534,7 +534,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -560,7 +560,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -588,7 +588,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -614,7 +614,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -640,7 +640,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -668,7 +668,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
@@ -694,7 +694,7 @@ Timur Alisherovich
 CEO, TZAI Company Group
 Telegram: @Salvatore_Lazzaro
 Тел/Phone: +7 905 506 61 55
-tzai.flow@mail.ru
+info@tzai.it.com
 https://mktimz97-blip.github.io/tzai-website/
 
 ---
