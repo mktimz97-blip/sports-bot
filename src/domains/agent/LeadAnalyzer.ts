@@ -45,7 +45,9 @@ export interface JobPosting {
 export interface AnalyzerConfig {
   webhookUrl: string;
   hunterApiKey?: string;
+  serperApiKey?: string;
   hhApiEnabled: boolean;
+  zakupkiEnabled: boolean;
   timeoutMs: number;
 }
 
@@ -61,7 +63,9 @@ export class LeadAnalyzer {
     this.config = {
       webhookUrl: config.webhookUrl || 'http://134.122.87.138:5678/webhook/leadfinder',
       hunterApiKey: config.hunterApiKey || process.env.HUNTER_API_KEY,
+      serperApiKey: config.serperApiKey || process.env.SERPER_API_KEY,
       hhApiEnabled: config.hhApiEnabled !== false,
+      zakupkiEnabled: config.zakupkiEnabled !== false,
       timeoutMs: config.timeoutMs || 15000,
     };
   }
@@ -191,15 +195,34 @@ export class LeadAnalyzer {
     const results: JobPosting[] = [];
     const companyName = domain.split('.')[0];
 
+    const searches: Promise<JobPosting[]>[] = [];
+
     if (this.config.hhApiEnabled) {
-      try {
-        const hhResults = await this.searchHH(companyName);
-        results.push(...hhResults);
-      } catch { /* hh.ru unavailable — continue */ }
+      searches.push(
+        this.searchHH(companyName).catch(() => []),
+        this.searchHHByDomain(domain).catch(() => []),
+      );
     }
 
-    results.push(...this.inferLinkedInPostings(companyName));
-    return results;
+    if (this.config.serperApiKey) {
+      searches.push(this.searchLinkedInViaSerper(companyName, domain).catch(() => []));
+    } else {
+      searches.push(Promise.resolve(this.inferLinkedInPostings(companyName)));
+    }
+
+    const allResults = await Promise.all(searches);
+    for (const batch of allResults) {
+      results.push(...batch);
+    }
+
+    // Deduplicate by title
+    const seen = new Set<string>();
+    return results.filter((j) => {
+      const key = j.title.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
   private async searchHH(companyName: string): Promise<JobPosting[]> {
@@ -231,6 +254,70 @@ export class LeadAnalyzer {
     }
   }
 
+  private async searchHHByDomain(domain: string): Promise<JobPosting[]> {
+    const apiUrl = `https://api.hh.ru/employers?text=${encodeURIComponent(domain)}&per_page=5`;
+    const raw = await this.httpGet(apiUrl);
+    const data = JSON.parse(raw);
+    const employers: Array<{ id: number; name: string; open_vacancies: number }> = data.items || [];
+
+    const results: JobPosting[] = [];
+    for (const emp of employers.slice(0, 3)) {
+      if (emp.open_vacancies === 0) continue;
+      const vacUrl = `https://api.hh.ru/vacancies?employer_id=${emp.id}&per_page=10`;
+      try {
+        const vacRaw = await this.httpGet(vacUrl);
+        const vacData = JSON.parse(vacRaw);
+        const automationKeywords = [
+          'автоматизация', 'automation', 'devops', 'data', 'analyst', 'crm',
+          'erp', 'bi', 'аналитик', 'процесс', 'интеграция', 'integration',
+          'python', 'excel', 'отчёт', 'report', '1с', '1c',
+        ];
+        for (const v of (vacData.items || []).slice(0, 10)) {
+          const title = v.name || '';
+          const lower = title.toLowerCase();
+          const matched = automationKeywords.filter((kw) => lower.includes(kw));
+          results.push({
+            title,
+            source: 'hh.ru' as const,
+            automationRelevance: matched.length > 0,
+            keywords: matched,
+          });
+        }
+      } catch { /* skip employer vacancies on error */ }
+    }
+    return results;
+  }
+
+  private async searchLinkedInViaSerper(companyName: string, domain: string): Promise<JobPosting[]> {
+    const query = `site:linkedin.com/jobs "${companyName}" OR "${domain}"`;
+    const raw = await this.httpPost('https://google.serper.dev/search', {
+      q: query,
+      num: 10,
+    }, {
+      'X-API-KEY': this.config.serperApiKey!,
+      'Content-Type': 'application/json',
+    });
+
+    const data = JSON.parse(raw);
+    const organic: Array<{ title: string; snippet: string }> = data.organic || [];
+    const automationKeywords = [
+      'automation', 'data', 'analyst', 'devops', 'crm', 'erp', 'integration',
+      'python', 'developer', 'engineer', 'ai', 'machine learning', 'process',
+    ];
+
+    return organic.slice(0, 10).map((r) => {
+      const title = r.title || '';
+      const lower = (title + ' ' + (r.snippet || '')).toLowerCase();
+      const matched = automationKeywords.filter((kw) => lower.includes(kw));
+      return {
+        title,
+        source: 'linkedin' as const,
+        automationRelevance: matched.length > 0,
+        keywords: matched,
+      };
+    });
+  }
+
   private inferLinkedInPostings(companyName: string): JobPosting[] {
     return [{
       title: `${companyName} — LinkedIn job search pending`,
@@ -246,6 +333,7 @@ export class LeadAnalyzer {
     const signals: string[] = [];
     const companyName = domain.split('.')[0];
 
+    // hh.ru employer data — hiring signals
     try {
       const tenderUrl = `https://api.hh.ru/employers?text=${encodeURIComponent(companyName)}&per_page=3`;
       const raw = await this.httpGet(tenderUrl);
@@ -255,13 +343,50 @@ export class LeadAnalyzer {
         if (emp.open_vacancies > 5) {
           signals.push(`${emp.name}: ${emp.open_vacancies} open positions (active hiring = growth signal)`);
         }
+        if (emp.open_vacancies > 0) {
+          signals.push(`${emp.name}: ${emp.open_vacancies} vacancies on hh.ru`);
+        }
       }
     } catch { /* continue without hh employer data */ }
 
-    signals.push(`Check zakupki.gov.ru for "${companyName}" government tenders`);
+    // zakupki.gov.ru — government tenders via Serper
+    if (this.config.zakupkiEnabled && this.config.serperApiKey) {
+      try {
+        const zakupkiResults = await this.searchZakupki(companyName);
+        signals.push(...zakupkiResults);
+      } catch { /* continue without zakupki data */ }
+    } else {
+      signals.push(`Check zakupki.gov.ru for "${companyName}" government tenders`);
+    }
+
     signals.push(`Check bo.nalog.ru for "${companyName}" financial reports`);
 
     return signals;
+  }
+
+  private async searchZakupki(companyName: string): Promise<string[]> {
+    const query = `site:zakupki.gov.ru "${companyName}"`;
+    const raw = await this.httpPost('https://google.serper.dev/search', {
+      q: query,
+      num: 5,
+      gl: 'ru',
+      hl: 'ru',
+    }, {
+      'X-API-KEY': this.config.serperApiKey!,
+      'Content-Type': 'application/json',
+    });
+
+    const data = JSON.parse(raw);
+    const organic: Array<{ title: string; link: string; snippet: string }> = data.organic || [];
+
+    if (organic.length === 0) {
+      return [`No government tenders found for "${companyName}" on zakupki.gov.ru`];
+    }
+
+    return organic.slice(0, 5).map((r) => {
+      const title = (r.title || '').replace(/\s+/g, ' ').trim();
+      return `Tender: ${title} (${r.link || 'zakupki.gov.ru'})`;
+    });
   }
 
   // ── Step 5: Pain Points ────────────────────────
@@ -477,6 +602,22 @@ export class LeadAnalyzer {
     score += painPoints.filter((p) => p.severity === 'high').length * 10;
     score += jobs.filter((j) => j.automationRelevance).length * 5;
     score += signals.length * 3;
+
+    // Boost for companies with 5+ open positions (strong growth/need signal)
+    const totalPositions = jobs.length;
+    if (totalPositions >= 5) {
+      score += 15;
+    }
+    if (totalPositions >= 10) {
+      score += 10; // additional boost for very active hiring
+    }
+
+    // Boost for companies with government tenders (large budgets)
+    const hasTenders = signals.some((s) => s.toLowerCase().includes('tender:'));
+    if (hasTenders) {
+      score += 10;
+    }
+
     return Math.min(100, score);
   }
 
@@ -522,6 +663,35 @@ export class LeadAnalyzer {
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  private async httpPost(requestUrl: string, body: Record<string, unknown>, headers: Record<string, string> = {}): Promise<string> {
+    const payload = JSON.stringify(body);
+    return new Promise((resolve, reject) => {
+      const parsed = new url.URL(requestUrl);
+      const client = parsed.protocol === 'https:' ? https : http;
+      const req = client.request({
+        hostname: parsed.hostname,
+        port: parsed.port || (parsed.protocol === 'https:' ? 443 : 80),
+        path: parsed.pathname + parsed.search,
+        method: 'POST',
+        headers: {
+          'User-Agent': 'TZAI-LeadAnalyzer/1.0',
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(payload),
+          ...headers,
+        },
+        timeout: this.config.timeoutMs,
+      }, (res) => {
+        let data = '';
+        res.on('data', (chunk: Buffer) => { data += chunk.toString(); });
+        res.on('end', () => resolve(data));
+      });
+      req.on('error', reject);
+      req.on('timeout', () => { req.destroy(); reject(new Error('Timeout')); });
+      req.write(payload);
+      req.end();
+    });
   }
 
   private async httpGet(requestUrl: string): Promise<string> {
