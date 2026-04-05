@@ -5,8 +5,35 @@ tags: [dashboard, tzai]
 
 # TZAI Ecosystem Dashboard
 
-> **TZAI Company Group** — AI Automation for RU/CIS businesses
-> CEO: Timur Alisherovich | @Salvatore_Lazzaro
+## Command Hierarchy
+
+```
+Timur Alisherovich (CEO)
+    |
+    v
+Claude Code + RuFlo V3.5  ← brain, 8 agents
+    |
+    v
+n8n VPS 134.122.87.138:5678
+    |
+    +--→ LeadAnalyzer         (12h)  — search → analyze → email
+    +--→ LeadFinder Pipeline  (6h)   — domain list → analyze → email
+    +--→ Auto-Reply IMAP      (30m)  — inbox → Claude AI → reply
+    +--→ Daily Lead Summary   (9:00) — digest → Telegram
+    +--→ Health Check         (6h)   — monitor all workflows → TG
+    +--→ CRM JSON Tracker     (webhook) — store & serve leads
+```
+
+## Status
+
+| Metric | Value |
+|--------|-------|
+| Domain `tzai.it.com` | Verified |
+| FROM email | `info@tzai.it.com` |
+| LeadAnalyzer | Fixed (Extract URLs bug + 30s timeouts) |
+| First lead | **ACID21** — score **84/100** |
+| Active workflows | 7 |
+| Pipeline test | Passed 18.4s end-to-end |
 
 ---
 
