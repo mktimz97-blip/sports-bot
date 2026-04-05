@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TZAI — Investor Pitch</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0D0D0D;--surface:#161616;--accent:#00D17A;--accent-dim:rgba(0,209,122,.12);--text:#FFFFFF;--muted:#808080;--dim:#2a2a2a}
+html{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;scroll-snap-type:y mandatory;overflow-x:hidden}
+body{-webkit-font-smoothing:antialiased}
+
+/* Progress bar */
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:100;transition:width .3s ease;width:0}
+
+/* Logo */
+.logo{position:absolute;top:36px;left:48px;z-index:10;font-size:22px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--accent)}
+.slide-num{position:absolute;bottom:36px;right:48px;z-index:10;font-size:12px;font-weight:600;color:var(--dim);letter-spacing:3px;font-variant-numeric:tabular-nums}
+
+/* Slides */
+.slide{width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;scroll-snap-align:start;position:relative;overflow:hidden;padding:80px 60px}
+.content{position:relative;z-index:2;max-width:1000px;width:100%}
+
+/* Fade-in on scroll */
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in.d1{transition-delay:.15s}.fade-in.d2{transition-delay:.3s}.fade-in.d3{transition-delay:.45s}.fade-in.d4{transition-delay:.6s}.fade-in.d5{transition-delay:.75s}
+
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+h1{font-size:clamp(40px,5.5vw,76px);font-weight:900;line-height:1.08;letter-spacing:-2.5px;margin-bottom:36px}
+h1 em{font-style:normal;color:var(--accent)}
+
+/* ====== SLIDE 1: STORY ====== */
+.story-text{font-size:clamp(17px,1.8vw,21px);color:#ccc;line-height:1.85;max-width:720px;font-weight:400}
+.story-text strong{color:var(--text);font-weight:700}
+.story-text .highlight{color:var(--accent);font-weight:700}
+
+/* ====== SLIDE 2: PROBLEM ====== */
+.metrics{display:flex;flex-direction:column;gap:40px}
+.metric{display:flex;align-items:baseline;gap:20px}
+.metric-num{font-size:clamp(52px,6vw,80px);font-weight:900;letter-spacing:-2px;color:var(--accent);line-height:1;min-width:200px;font-variant-numeric:tabular-nums}
+.metric-label{font-size:clamp(16px,1.6vw,20px);color:var(--muted);font-weight:500}
+
+/* Counter animation */
+.counter{display:inline-block}
+
+/* ====== SLIDE 3: ECOSYSTEM ====== */
+.pipeline{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;margin-bottom:40px;position:relative}
+.agent-node{background:var(--surface);border:2px solid var(--dim);border-radius:14px;padding:18px 24px;font-size:15px;font-weight:700;position:relative;opacity:0;transform:scale(.8);transition:all .5s ease;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.agent-node.active{opacity:1;transform:scale(1);border-color:var(--accent);box-shadow:0 0 30px rgba(0,209,122,.15)}
+.agent-node .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+.event-node{background:var(--accent-dim);border:2px solid var(--accent);border-radius:14px;padding:18px 24px;font-size:14px;font-weight:600;color:var(--accent);opacity:0;transform:scale(.8);transition:all .5s ease;white-space:nowrap}
+.event-node.active{opacity:1;transform:scale(1)}
+
+.arrow{width:40px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s ease}
+.arrow.active{opacity:1}
+.arrow svg{overflow:visible}
+.arrow-line{stroke:var(--accent);stroke-width:2;stroke-dasharray:20;animation:dash 1.5s linear infinite}
+.arrow-head{fill:var(--accent)}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+@keyframes dash{to{stroke-dashoffset:-40}}
+
+.ecosystem-note{font-size:clamp(15px,1.5vw,18px);color:var(--muted);font-weight:400;text-align:center}
+.ecosystem-note strong{color:var(--text);font-weight:700}
+
+/* ====== SLIDE 4: MARKET ====== */
+.market-stats{display:flex;gap:60px;flex-wrap:wrap}
+.market-stat{display:flex;flex-direction:column}
+.market-num{font-size:clamp(44px,5vw,72px);font-weight:900;letter-spacing:-2px;color:var(--accent);line-height:1.1}
+.market-sub{font-size:14px;color:var(--muted);margin-top:8px;font-weight:600;max-width:180px}
+
+/* ====== SLIDE 5: OFFER ====== */
+.cards{display:flex;gap:28px;margin-bottom:40px;flex-wrap:wrap}
+.card{border-radius:18px;padding:40px 36px;flex:1;min-width:280px;transition:transform .3s}
+.card:hover{transform:translateY(-6px)}
+.card-dark{background:var(--surface);border:1px solid var(--dim)}
+.card-accent{background:linear-gradient(135deg,#00D17A,#00A862);color:#0D0D0D}
+.card-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.card-dark .card-label{color:var(--muted)}
+.card-accent .card-label{color:rgba(0,0,0,.5)}
+.card-title{font-size:20px;font-weight:800;margin-bottom:20px}
+.card-accent .card-title{color:#0D0D0D}
+.card-price{font-size:clamp(30px,3.5vw,44px);font-weight:900;letter-spacing:-1px;line-height:1.1}
+.card-dark .card-price{color:var(--accent)}
+.card-accent .card-price{color:#0D0D0D}
+.card-details{font-size:13px;margin-top:12px;line-height:1.8;font-weight:500}
+.card-dark .card-details{color:var(--muted)}
+.card-accent .card-details{color:rgba(0,0,0,.6)}
+
+.revenue{font-size:clamp(20px,2.5vw,30px);font-weight:800;margin-bottom:40px}
+.revenue em{font-style:normal;color:var(--accent)}
+
+.contact{font-size:15px;color:var(--muted);line-height:2.2}
+.contact a{color:var(--accent);text-decoration:none;font-weight:600}
+.contact a:hover{text-decoration:underline}
+.contact-name{font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px}
+
+/* Ambient glow per slide */
+.glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(180px);opacity:.08;pointer-events:none}
+.glow-tr{top:-150px;right:-150px}.glow-bl{bottom:-150px;left:-150px}.glow-tl{top:-150px;left:-150px}.glow-br{bottom:-150px;right:-150px}
+.glow-green{background:var(--accent)}.glow-white{background:#ffffff}
+
+@media(max-width:768px){
+  .slide{padding:60px 24px}
+  .logo{top:20px;left:24px}.slide-num{bottom:20px;right:24px}
+  .metric{flex-direction:column;gap:4px}
+  .metric-num{min-width:auto}
+  .pipeline{gap:8px}
+  .arrow{width:24px}
+  .agent-node,.event-node{padding:12px 16px;font-size:13px}
+  .cards{flex-direction:column}
+  .market-stats{gap:36px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- SLIDE 1: STORY -->
+<div class="slide" id="s1">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">01 / 05</div>
+  <div class="glow glow-tr glow-green"></div>
+  <div class="content">
+    <div class="tag fade-in">Origin Story</div>
+    <h1 class="fade-in d1">Idea is born<br>from <em>pain</em></h1>
+    <div class="story-text fade-in d2">
+      I worked as an auditor at a <strong>Big Four</strong> firm. Macros. Excel. Routine.
+      One evening with <span class="highlight">Claude Code</span> I built a financial model
+      and sold it to an investor. That moment everything clicked:
+      while everyone writes macros &mdash; <strong>I build agents</strong>.
+      <br><br>
+      TZAI is my bet on the <span class="highlight">inevitable</span>.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: PROBLEM -->
+<div class="slide" id="s2">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">02 / 05</div>
+  <div class="glow glow-bl glow-white"></div>
+  <div class="content">
+    <div class="tag fade-in">The Problem</div>
+    <h1 class="fade-in d1">Business pays humans<br>for what <em>machines</em> do</h1>
+    <div class="metrics">
+      <div class="metric fade-in d2">
+        <div class="metric-num"><span class="counter" data-target="60">0</span>%</div>
+        <div class="metric-label">of manager time wasted on lead search</div>
+      </div>
+      <div class="metric fade-in d3">
+        <div class="metric-num">&times;<span class="counter" data-target="5">0</span></div>
+        <div class="metric-label">AI is cheaper than a full sales team</div>
+      </div>
+      <div class="metric fade-in d4">
+        <div class="metric-num"><span class="counter" data-target="200">0</span>%</div>
+        <div class="metric-label">average ROI from AI sales automation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: ECOSYSTEM -->
+<div class="slide" id="s3">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">03 / 05</div>
+  <div class="glow glow-tl glow-green"></div>
+  <div class="content" style="max-width:1100px">
+    <div class="tag fade-in" style="text-align:center;display:block">The Product</div>
+    <h1 class="fade-in d1" style="text-align:center">8 agents. One brain.<br><em>Zero people.</em></h1>
+    <div class="pipeline" id="pipeline">
+      <div class="agent-node" data-seq="0"><span class="dot"></span>Finder</div>
+      <div class="arrow" data-seq="1"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
+      <div class="agent-node" data-seq="2"><span class="dot"></span>Analyzer</div>
+      <div class="arrow" data-seq="3"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
+      <div class="agent-node" data-seq="4"><span class="dot"></span>Composer</div>
+      <div class="arrow" data-seq="5"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
+      <div class="event-node" data-seq="6">Lead gets email</div>
+      <div class="arrow" data-seq="7"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
+      <div class="agent-node" data-seq="8"><span class="dot"></span>Responder</div>
+      <div class="arrow" data-seq="9"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
+      <div class="event-node" data-seq="10">Timur in Telegram</div>
+    </div>
+    <div class="ecosystem-note fade-in d3" style="text-align:center">
+      Built in <strong>2 weeks</strong> &middot; Runs <strong>24/7</strong> &middot; Powered by <strong>Claude Opus</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: MARKET -->
+<div class="slide" id="s4">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">04 / 05</div>
+  <div class="glow glow-br glow-green"></div>
+  <div class="content">
+    <div class="tag fade-in">The Market</div>
+    <h1 class="fade-in d1">Russia &amp; CIS<br>is <em>untouched</em></h1>
+    <div class="market-stats">
+      <div class="market-stat fade-in d2">
+        <div class="market-num">&#8381;890B</div>
+        <div class="market-sub">RUB market size</div>
+      </div>
+      <div class="market-stat fade-in d3">
+        <div class="market-num">40%</div>
+        <div class="market-sub">annual growth</div>
+      </div>
+      <div class="market-stat fade-in d4">
+        <div class="market-num">&lt;2%</div>
+        <div class="market-sub">have adopted AI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: OFFER -->
+<div class="slide" id="s5">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">05 / 05</div>
+  <div class="glow glow-tl glow-green"></div>
+  <div class="content">
+    <div class="tag fade-in">The Offer</div>
+    <h1 class="fade-in d1">Two products.<br>One <em>result.</em></h1>
+    <div class="cards">
+      <div class="card card-dark fade-in d2">
+        <div class="card-label">One-time</div>
+        <div class="card-title">Turnkey Ecosystem</div>
+        <div class="card-price">1 200 000 &#8381;</div>
+        <div class="card-details">Full code handover<br>2 months support</div>
+      </div>
+      <div class="card card-accent fade-in d3">
+        <div class="card-label">Monthly</div>
+        <div class="card-title">AI Sales Department</div>
+        <div class="card-price">500 000 &#8381;/mo</div>
+        <div class="card-details">Weekly leads<br>SLA 30 min</div>
+      </div>
+    </div>
+    <div class="revenue fade-in d4">At 5 clients &mdash; <em>3 000 000 &#8381;/month</em></div>
+    <div class="contact fade-in d5">
+      <div class="contact-name">Timur Alisherovich</div>
+      <a href="mailto:info@tzai.it.com">info@tzai.it.com</a> &middot;
+      <a href="https://t.me/Salvatore_Lazzaro">t.me/Salvatore_Lazzaro</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Progress bar
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (window.scrollY / h * 100) + '%';
+});
+
+// Intersection Observer for fade-in
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// Counter animation
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    if (el.dataset.counted) return;
+    el.dataset.counted = '1';
+    const target = parseInt(el.dataset.target);
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      el.textContent = Math.round(target * ease);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+// Pipeline animation — looping
+const pipelineSlide = document.getElementById('s3');
+let pipelineInterval = null;
+
+function runPipeline() {
+  const items = document.querySelectorAll('#pipeline > *');
+  // Reset all
+  items.forEach(el => el.classList.remove('active'));
+  // Activate sequentially
+  items.forEach((el, i) => {
+    setTimeout(() => el.classList.add('active'), i * 500);
+  });
+}
+
+const pipeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      runPipeline();
+      // Loop: total animation = items * 500ms, restart after pause
+      const items = document.querySelectorAll('#pipeline > *');
+      const cycleDuration = items.length * 500 + 3000; // 3s pause
+      pipelineInterval = setInterval(runPipeline, cycleDuration);
+    } else {
+      clearInterval(pipelineInterval);
+    }
+  });
+}, { threshold: 0.3 });
+pipeObs.observe(pipelineSlide);
+</script>
+</body>
+</html>
