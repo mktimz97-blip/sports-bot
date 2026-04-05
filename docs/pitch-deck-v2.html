@@ -32,16 +32,18 @@ body{-webkit-font-smoothing:antialiased}
 h1{font-size:clamp(40px,5.5vw,76px);font-weight:900;line-height:1.08;letter-spacing:-2.5px;margin-bottom:36px}
 h1 em{font-style:normal;color:var(--accent)}
 
-/* ====== SLIDE 1: STORY ====== */
-.story-text{font-size:clamp(17px,1.8vw,21px);color:#ccc;line-height:1.85;max-width:720px;font-weight:400}
+/* ====== SLIDE 1: STORY + PROBLEM (split layout) ====== */
+.split{display:flex;gap:60px;align-items:flex-start}
+.split-left,.split-right{flex:1;min-width:0}
+
+.story-text{font-size:clamp(15px,1.4vw,18px);color:#ccc;line-height:1.85;font-weight:400}
 .story-text strong{color:var(--text);font-weight:700}
 .story-text .highlight{color:var(--accent);font-weight:700}
 
-/* ====== SLIDE 2: PROBLEM ====== */
-.metrics{display:flex;flex-direction:column;gap:40px}
-.metric{display:flex;align-items:baseline;gap:20px}
-.metric-num{font-size:clamp(52px,6vw,80px);font-weight:900;letter-spacing:-2px;color:var(--accent);line-height:1;min-width:200px;font-variant-numeric:tabular-nums}
-.metric-label{font-size:clamp(16px,1.6vw,20px);color:var(--muted);font-weight:500}
+.metrics{display:flex;flex-direction:column;gap:32px}
+.metric{display:flex;align-items:baseline;gap:16px}
+.metric-num{font-size:clamp(44px,4.5vw,64px);font-weight:900;letter-spacing:-2px;color:var(--accent);line-height:1;min-width:140px;font-variant-numeric:tabular-nums}
+.metric-label{font-size:clamp(14px,1.3vw,17px);color:var(--muted);font-weight:500}
 
 /* Counter animation */
 .counter{display:inline-block}
@@ -94,9 +96,9 @@ h1 em{font-style:normal;color:var(--accent)}
 .market-num{font-size:clamp(44px,5vw,72px);font-weight:900;letter-spacing:-2px;color:var(--accent);line-height:1.1}
 .market-sub{font-size:14px;color:var(--muted);margin-top:8px;font-weight:600;max-width:180px}
 
-/* ====== SLIDE 5: OFFER ====== */
-.cards{display:flex;gap:28px;margin-bottom:40px;flex-wrap:wrap}
-.card{border-radius:18px;padding:40px 36px;flex:1;min-width:280px;transition:transform .3s}
+/* ====== SLIDE 2: OFFER (compact) ====== */
+.cards{display:flex;gap:20px;margin-bottom:28px;flex-wrap:wrap}
+.card{border-radius:16px;padding:28px 28px;flex:1;min-width:240px;transition:transform .3s}
 .card:hover{transform:translateY(-6px)}
 .card-dark{background:var(--surface);border:1px solid var(--dim)}
 .card-accent{background:linear-gradient(135deg,#00D17A,#00A862);color:#0D0D0D}
@@ -112,7 +114,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .card-dark .card-details{color:var(--muted)}
 .card-accent .card-details{color:rgba(0,0,0,.6)}
 
-.revenue{font-size:clamp(20px,2.5vw,30px);font-weight:800;margin-bottom:40px}
+.revenue{font-size:clamp(16px,2vw,24px);font-weight:800;margin-bottom:24px}
 .revenue em{font-style:normal;color:var(--accent)}
 
 .contact{font-size:15px;color:var(--muted);line-height:2.2}
@@ -133,6 +135,7 @@ h1 em{font-style:normal;color:var(--accent)}
   .pipeline{gap:8px}
   .arrow{width:24px}
   .agent-node,.event-node{padding:12px 16px;font-size:13px}
+  .split{flex-direction:column;gap:32px}
   .cards{flex-direction:column}
   .market-stats{gap:36px}
 }
@@ -141,59 +144,55 @@ h1 em{font-style:normal;color:var(--accent)}
 <body>
 <div id="progress"></div>
 
-<!-- SLIDE 1: STORY -->
+<!-- SLIDE 1: STORY + PROBLEM -->
 <div class="slide" id="s1">
   <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">01 / 04</div>
+  <div class="slide-num">01 / 02</div>
   <div class="glow glow-tr glow-green"></div>
-  <div class="content">
-    <div class="tag fade-in">История</div>
-    <h1 class="fade-in d1">Идея рождается<br>из <em>боли</em></h1>
-    <div class="story-text fade-in d2">
-      Я работал аудитором в <strong>Большой четвёрке</strong>. Макросы. Excel. Рутина.
-      Однажды за один вечер с <span class="highlight">Claude Code</span> я построил финансовую модель
-      &mdash; и продал её инвестору. В тот момент всё стало ясно:
-      пока все пишут макросы &mdash; <strong>я строю агентов</strong>.
-      <br><br>
-      TZAI &mdash; моя ставка на <span class="highlight">неизбежное</span>.
-    </div>
-  </div>
-</div>
-
-<!-- SLIDE 2: PROBLEM -->
-<div class="slide" id="s2">
-  <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">02 / 04</div>
   <div class="glow glow-bl glow-white"></div>
-  <div class="content">
-    <div class="tag fade-in">Проблема</div>
-    <h1 class="fade-in d1">Бизнес платит людям<br>за то, что делает <em>машина</em></h1>
-    <div class="metrics">
-      <div class="metric fade-in d2">
-        <div class="metric-num"><span class="counter" data-target="60">0</span>%</div>
-        <div class="metric-label">времени менеджера тратится на поиск лидов</div>
+  <div class="content" style="max-width:1200px">
+    <div class="tag fade-in">TZAI Company Group</div>
+    <h1 class="fade-in d1" style="font-size:clamp(32px,4.5vw,60px)">Идея рождается из <em>боли</em>.<br>Бизнес платит людям за то, что делает <em>машина</em>.</h1>
+    <div class="split fade-in d2">
+      <div class="split-left">
+        <div class="story-text">
+          Я работал аудитором в <strong>Большой четвёрке</strong>. Макросы. Excel. Рутина.
+          Однажды за один вечер с <span class="highlight">Claude Code</span> я построил финансовую модель
+          &mdash; и продал её инвестору. В тот момент всё стало ясно:
+          пока все пишут макросы &mdash; <strong>я строю агентов</strong>.
+          <br><br>
+          TZAI &mdash; моя ставка на <span class="highlight">неизбежное</span>.
+        </div>
       </div>
-      <div class="metric fade-in d3">
-        <div class="metric-num">&times;<span class="counter" data-target="5">0</span></div>
-        <div class="metric-label">AI дешевле целого отдела продаж</div>
-      </div>
-      <div class="metric fade-in d4">
-        <div class="metric-num"><span class="counter" data-target="200">0</span>%</div>
-        <div class="metric-label">средний ROI от AI-автоматизации продаж</div>
+      <div class="split-right">
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-num"><span class="counter" data-target="60">0</span>%</div>
+            <div class="metric-label">времени менеджера тратится на поиск лидов</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">&times;<span class="counter" data-target="5">0</span></div>
+            <div class="metric-label">AI дешевле целого отдела продаж</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num"><span class="counter" data-target="200">0</span>%</div>
+            <div class="metric-label">средний ROI от AI-автоматизации</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 3: PRODUCT + MARKET -->
-<div class="slide" id="s3">
+<!-- SLIDE 2: PRODUCT + MARKET + OFFER -->
+<div class="slide" id="s3" style="padding-top:60px;padding-bottom:40px">
   <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num" id="sn3">03 / 04</div>
+  <div class="slide-num">02 / 02</div>
   <div class="glow glow-tl glow-green"></div>
-  <div class="content" style="max-width:1100px">
-    <div class="tag fade-in" style="text-align:center;display:block">Продукт &middot; Рынок</div>
-    <h1 class="fade-in d1" style="text-align:center;margin-bottom:24px">8 агентов. Один мозг.<br><em>Ноль людей.</em></h1>
-    <div class="live-counter fade-in d2" id="live-counter">
+  <div class="glow glow-br glow-green"></div>
+  <div class="content" style="max-width:1200px">
+    <h1 class="fade-in" style="text-align:center;font-size:clamp(28px,4vw,52px);margin-bottom:16px">8 агентов. Один мозг. <em>Ноль людей.</em></h1>
+    <div class="live-counter fade-in d1" id="live-counter">
       <span class="blink"></span>Работает прямо сейчас &mdash; <span class="timer" id="uptime">0 секунд</span>
     </div>
     <div class="pipeline" id="pipeline">
@@ -226,7 +225,7 @@ h1 em{font-style:normal;color:var(--accent)}
         <div class="node-sub">real-time alerts</div>
       </div>
     </div>
-    <div class="info-cards fade-in d3">
+    <div class="info-cards fade-in d2">
       <div class="info-card info-dark">
         <div class="info-big">&#8381;890 млрд</div>
         <div class="info-title">Рынок РФ и СНГ</div>
@@ -243,36 +242,27 @@ h1 em{font-style:normal;color:var(--accent)}
         <div class="info-sub">работает 24/7</div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- SLIDE 4: OFFER -->
-<div class="slide" id="s4">
-  <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">04 / 04</div>
-  <div class="glow glow-tl glow-green"></div>
-  <div class="content">
-    <div class="tag fade-in">Предложение</div>
-    <h1 class="fade-in d1">Два продукта.<br>Один <em>результат.</em></h1>
-    <div class="cards">
-      <div class="card card-dark fade-in d2">
+    <div class="cards fade-in d3" style="margin-top:24px">
+      <div class="card card-dark">
         <div class="card-label">Единовременно</div>
         <div class="card-title">Экосистема под ключ</div>
         <div class="card-price">от 1 200 000 &#8381;</div>
-        <div class="card-details">Передача кода<br>2 месяца поддержки</div>
+        <div class="card-details">Передача кода &middot; 2 мес поддержки</div>
       </div>
-      <div class="card card-accent fade-in d3">
+      <div class="card card-accent">
         <div class="card-label">Ежемесячно</div>
         <div class="card-title">AI-отдел продаж</div>
         <div class="card-price">от 500 000 &#8381;/мес</div>
-        <div class="card-details">Лиды еженедельно<br>SLA 30 минут</div>
+        <div class="card-details">Лиды еженедельно &middot; SLA 30 мин</div>
       </div>
     </div>
-    <div class="revenue fade-in d4">При 5 клиентах &mdash; <em>3 000 000 &#8381;/мес</em></div>
-    <div class="contact fade-in d5">
-      <div class="contact-name">Тимур Алишерович</div>
-      <a href="mailto:info@tzai.it.com">info@tzai.it.com</a> &middot;
-      <a href="https://t.me/Salvatore_Lazzaro">t.me/Salvatore_Lazzaro</a>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:20px" class="fade-in d4">
+      <div class="revenue" style="margin-bottom:0">При 5 клиентах &mdash; <em>3 000 000 &#8381;/мес</em></div>
+      <div class="contact" style="text-align:right">
+        <span class="contact-name" style="font-size:16px">Тимур Алишерович</span><br>
+        <a href="mailto:info@tzai.it.com">info@tzai.it.com</a> &middot;
+        <a href="https://t.me/Salvatore_Lazzaro">t.me/Salvatore_Lazzaro</a>
+      </div>
     </div>
   </div>
 </div>
