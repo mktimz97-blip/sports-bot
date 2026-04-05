@@ -47,17 +47,24 @@ h1 em{font-style:normal;color:var(--accent)}
 .counter{display:inline-block}
 
 /* ====== SLIDE 3: ECOSYSTEM ====== */
-.pipeline{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;margin-bottom:40px;position:relative}
-.agent-node{background:var(--surface);border:2px solid var(--dim);border-radius:14px;padding:18px 24px;font-size:15px;font-weight:700;position:relative;opacity:0;transform:scale(.8);transition:all .5s ease;display:flex;align-items:center;gap:10px;white-space:nowrap}
-.agent-node.active{opacity:1;transform:scale(1);border-color:var(--accent);box-shadow:0 0 30px rgba(0,209,122,.15)}
-.agent-node .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
-.event-node{background:var(--accent-dim);border:2px solid var(--accent);border-radius:14px;padding:18px 24px;font-size:14px;font-weight:600;color:var(--accent);opacity:0;transform:scale(.8);transition:all .5s ease;white-space:nowrap}
-.event-node.active{opacity:1;transform:scale(1)}
+.live-counter{text-align:center;margin-bottom:32px;font-size:15px;color:var(--muted);font-weight:500;letter-spacing:.5px}
+.live-counter .timer{color:var(--accent);font-weight:900;font-size:20px;font-variant-numeric:tabular-nums}
+.live-counter .blink{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:10px;animation:pulse 2s ease-in-out infinite}
 
-.arrow{width:40px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s ease}
+.pipeline{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;margin-bottom:40px;position:relative}
+.agent-node{background:var(--surface);border:3px solid var(--dim);border-radius:16px;padding:22px 28px;font-size:17px;font-weight:700;position:relative;opacity:0;transform:scale(.8);transition:all .5s ease;display:flex;flex-direction:column;align-items:center;gap:6px;white-space:nowrap}
+.agent-node.active{opacity:1;transform:scale(1);border-color:var(--accent);box-shadow:0 0 40px rgba(0,209,122,.18)}
+.agent-node .node-top{display:flex;align-items:center;gap:10px}
+.agent-node .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+.agent-node .node-sub{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.3px}
+.event-node{background:var(--accent-dim);border:3px solid var(--accent);border-radius:16px;padding:22px 28px;font-size:15px;font-weight:600;color:var(--accent);opacity:0;transform:scale(.8);transition:all .5s ease;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:4px}
+.event-node.active{opacity:1;transform:scale(1)}
+.event-node .node-sub{font-size:11px;font-weight:500;color:rgba(0,209,122,.6)}
+
+.arrow{width:48px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s ease}
 .arrow.active{opacity:1}
 .arrow svg{overflow:visible}
-.arrow-line{stroke:var(--accent);stroke-width:2;stroke-dasharray:20;animation:dash 1.5s linear infinite}
+.arrow-line{stroke:var(--accent);stroke-width:3;stroke-dasharray:20;animation:dash 1.5s linear infinite}
 .arrow-head{fill:var(--accent)}
 
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
@@ -171,18 +178,38 @@ h1 em{font-style:normal;color:var(--accent)}
   <div class="content" style="max-width:1100px">
     <div class="tag fade-in" style="text-align:center;display:block">Продукт</div>
     <h1 class="fade-in d1" style="text-align:center">8 агентов. Один мозг.<br><em>Ноль людей.</em></h1>
+    <div class="live-counter fade-in d2" id="live-counter">
+      <span class="blink"></span>Работает прямо сейчас &mdash; <span class="timer" id="uptime">0 секунд</span>
+    </div>
     <div class="pipeline" id="pipeline">
-      <div class="agent-node" data-seq="0"><span class="dot"></span>Поиск</div>
-      <div class="arrow" data-seq="1"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
-      <div class="agent-node" data-seq="2"><span class="dot"></span>Анализ</div>
-      <div class="arrow" data-seq="3"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
-      <div class="agent-node" data-seq="4"><span class="dot"></span>Письмо</div>
-      <div class="arrow" data-seq="5"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
-      <div class="event-node" data-seq="6">Лид получает письмо</div>
-      <div class="arrow" data-seq="7"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
-      <div class="agent-node" data-seq="8"><span class="dot"></span>Ответчик</div>
-      <div class="arrow" data-seq="9"><svg width="40" height="20"><line class="arrow-line" x1="0" y1="10" x2="30" y2="10"/><polygon class="arrow-head" points="28,5 38,10 28,15"/></svg></div>
-      <div class="event-node" data-seq="10">Тимур в Telegram</div>
+      <div class="agent-node" data-seq="0">
+        <div class="node-top"><span class="dot"></span>Finder</div>
+        <div class="node-sub">15+ search profiles</div>
+      </div>
+      <div class="arrow" data-seq="1"><svg width="48" height="20"><line class="arrow-line" x1="0" y1="10" x2="36" y2="10"/><polygon class="arrow-head" points="34,4 46,10 34,16"/></svg></div>
+      <div class="agent-node" data-seq="2">
+        <div class="node-top"><span class="dot"></span>Analyzer</div>
+        <div class="node-sub">5 layers &middot; score 0&ndash;100</div>
+      </div>
+      <div class="arrow" data-seq="3"><svg width="48" height="20"><line class="arrow-line" x1="0" y1="10" x2="36" y2="10"/><polygon class="arrow-head" points="34,4 46,10 34,16"/></svg></div>
+      <div class="agent-node" data-seq="4">
+        <div class="node-top"><span class="dot"></span>Composer</div>
+        <div class="node-sub">hyper-personalized</div>
+      </div>
+      <div class="arrow" data-seq="5"><svg width="48" height="20"><line class="arrow-line" x1="0" y1="10" x2="36" y2="10"/><polygon class="arrow-head" points="34,4 46,10 34,16"/></svg></div>
+      <div class="event-node" data-seq="6">
+        <span>Lead receives email</span>
+      </div>
+      <div class="arrow" data-seq="7"><svg width="48" height="20"><line class="arrow-line" x1="0" y1="10" x2="36" y2="10"/><polygon class="arrow-head" points="34,4 46,10 34,16"/></svg></div>
+      <div class="agent-node" data-seq="8">
+        <div class="node-top"><span class="dot"></span>Responder</div>
+        <div class="node-sub">reply in 30 min</div>
+      </div>
+      <div class="arrow" data-seq="9"><svg width="48" height="20"><line class="arrow-line" x1="0" y1="10" x2="36" y2="10"/><polygon class="arrow-head" points="34,4 46,10 34,16"/></svg></div>
+      <div class="event-node" data-seq="10">
+        <span>Timur @ Telegram</span>
+        <div class="node-sub">real-time alerts</div>
+      </div>
     </div>
     <div class="ecosystem-note fade-in d3" style="text-align:center">
       Собрано за <strong>2 недели</strong> &middot; Работает <strong>24/7</strong> &middot; На базе <strong>Claude Opus</strong>
@@ -309,6 +336,32 @@ const pipeObs = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 pipeObs.observe(pipelineSlide);
+
+// Uptime counter
+const uptimeEl = document.getElementById('uptime');
+let seconds = 0;
+function pluralize(n, one, few, many) {
+  const m = n % 100;
+  if (m >= 11 && m <= 19) return many;
+  const d = n % 10;
+  if (d === 1) return one;
+  if (d >= 2 && d <= 4) return few;
+  return many;
+}
+setInterval(() => {
+  seconds++;
+  if (seconds < 60) {
+    uptimeEl.textContent = seconds + ' ' + pluralize(seconds, 'секунда', 'секунды', 'секунд');
+  } else if (seconds < 3600) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    uptimeEl.textContent = m + ' ' + pluralize(m, 'минута', 'минуты', 'минут') + ' ' + s + ' сек';
+  } else {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    uptimeEl.textContent = h + ' ч ' + m + ' мин';
+  }
+}, 1000);
 </script>
 </body>
 </html>
