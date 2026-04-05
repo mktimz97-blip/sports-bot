@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TZAI — Investor Pitch</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #08080c;
+    --surface: #111118;
+    --accent: #7F77DD;
+    --accent2: #378ADD;
+    --text: #f0f0f5;
+    --muted: #6b6b80;
+    --dim: #3a3a4a;
+  }
+
+  html { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); scroll-behavior: smooth; scroll-snap-type: y mandatory; overflow-x: hidden; }
+
+  .slide {
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    scroll-snap-align: start;
+    position: relative; overflow: hidden;
+    padding: 60px 80px;
+  }
+
+  /* Subtle grid background */
+  .slide::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(127,119,221,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127,119,221,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Corner glow */
+  .slide::after {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(160px);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .slide:nth-child(1)::after { background: var(--accent); top: -200px; right: -200px; }
+  .slide:nth-child(2)::after { background: #DD4444; bottom: -200px; left: -200px; }
+  .slide:nth-child(3)::after { background: var(--accent2); top: -200px; left: -200px; }
+  .slide:nth-child(4)::after { background: var(--accent); bottom: -200px; right: -200px; }
+
+  .content { position: relative; z-index: 1; max-width: 1100px; width: 100%; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 32px;
+  }
+
+  h1 {
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 48px;
+  }
+
+  h1 em { font-style: normal; color: var(--accent); }
+
+  .stats {
+    display: flex; gap: 60px; flex-wrap: wrap;
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat-num {
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 900; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+  .stat-label { font-size: 14px; color: var(--muted); margin-top: 8px; font-weight: 600; letter-spacing: 0.5px; }
+
+  /* Slide 3: agents */
+  .agents {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .agent {
+    background: var(--surface);
+    border: 1px solid var(--dim);
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 15px; font-weight: 600;
+    transition: border-color 0.3s;
+  }
+  .agent:hover { border-color: var(--accent); }
+  .agent-icon { margin-right: 8px; }
+
+  .subtitle {
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--muted); font-weight: 400;
+    line-height: 1.6; max-width: 700px;
+  }
+  .subtitle strong { color: var(--text); font-weight: 700; }
+
+  /* Slide 4: offer */
+  .offers { display: flex; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
+  .offer-card {
+    background: var(--surface);
+    border: 1px solid var(--dim);
+    border-radius: 16px;
+    padding: 36px 40px;
+    flex: 1; min-width: 280px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .offer-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .offer-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .offer-name { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .offer-price {
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 900; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .offer-unit { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+  .revenue-line {
+    font-size: clamp(18px, 2.2vw, 26px);
+    font-weight: 700; margin-bottom: 40px;
+  }
+  .revenue-line em { font-style: normal; color: var(--accent); }
+
+  .contact {
+    font-size: 15px; color: var(--muted); line-height: 2;
+  }
+  .contact a { color: var(--accent2); text-decoration: none; }
+  .contact a:hover { text-decoration: underline; }
+  .contact-name { font-size: 18px; font-weight: 700; color: var(--text); }
+
+  /* Logo */
+  .logo {
+    position: absolute; top: 40px; left: 60px; z-index: 2;
+    font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+
+  .slide-num {
+    position: absolute; bottom: 40px; right: 60px; z-index: 2;
+    font-size: 12px; font-weight: 600; color: var(--dim); letter-spacing: 2px;
+  }
+
+  /* Divider line on slide 2 */
+  .problem-num { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+  .problem-num .big {
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 900; letter-spacing: -1px;
+    line-height: 1;
+  }
+  .problem-num .big.red { color: #DD5555; }
+  .problem-num .big.green {
+    background: linear-gradient(135deg, #44CC88, var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .problem-num .big.blue {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .problem-desc { font-size: 16px; color: var(--muted); font-weight: 500; margin-bottom: 36px; }
+
+  @media (max-width: 768px) {
+    .slide { padding: 40px 28px; }
+    .stats { gap: 32px; }
+    .offers { flex-direction: column; }
+    .logo { top: 24px; left: 28px; }
+    .slide-num { bottom: 24px; right: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: THE HOOK -->
+<div class="slide">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">01 / 04</div>
+  <div class="content">
+    <div class="tag">TZAI Company Group</div>
+    <h1>The sales team<br>that needs <em>no team</em></h1>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">890B</div>
+        <div class="stat-label">RUB market size</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">40%</div>
+        <div class="stat-label">annual growth</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><2%</div>
+        <div class="stat-label">adoption rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: THE PROBLEM -->
+<div class="slide">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">02 / 04</div>
+  <div class="content">
+    <div class="tag">The Problem</div>
+    <h1>Business pays humans to do what <em>machines</em> do</h1>
+    <div>
+      <div class="problem-num"><span class="big red">60%</span></div>
+      <div class="problem-desc">of manager time wasted on lead search</div>
+      <div class="problem-num"><span class="big green">&times;5</span></div>
+      <div class="problem-desc">AI is cheaper than a sales team</div>
+      <div class="problem-num"><span class="big blue">200%</span></div>
+      <div class="problem-desc">average ROI from AI sales automation</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: THE PRODUCT -->
+<div class="slide">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">03 / 04</div>
+  <div class="content">
+    <div class="tag">The Product</div>
+    <h1>8 agents. One brain.<br><em>Zero people.</em></h1>
+    <div class="agents">
+      <div class="agent"><span class="agent-icon">&#x1F50D;</span> Finder</div>
+      <div class="agent"><span class="agent-icon">&#x1F9E0;</span> Analyzer</div>
+      <div class="agent"><span class="agent-icon">&#x270D;&#xFE0F;</span> Composer</div>
+      <div class="agent"><span class="agent-icon">&#x1F4AC;</span> Responder</div>
+      <div class="agent" style="border-color: var(--accent);"><span class="agent-icon">&#x26A1;</span> RuFlo (Brain)</div>
+      <div class="agent"><span class="agent-icon">&#x1F4CA;</span> Monitor</div>
+    </div>
+    <div class="subtitle">
+      Built in <strong>2 weeks</strong>. Runs <strong>24/7</strong>.<br>
+      Based on <strong>Claude Opus</strong> &mdash; world's most powerful business AI.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: THE OFFER -->
+<div class="slide">
+  <div class="logo">TZ<span>AI</span></div>
+  <div class="slide-num">04 / 04</div>
+  <div class="content">
+    <div class="tag">The Offer</div>
+    <h1>Two ways <em>in</em></h1>
+    <div class="offers">
+      <div class="offer-card">
+        <div class="offer-label">One-time</div>
+        <div class="offer-name">Turnkey Ecosystem</div>
+        <div class="offer-price">&#8381;1.2M</div>
+        <div class="offer-unit">full setup + training</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-label">Subscription</div>
+        <div class="offer-name">AI Sales Department</div>
+        <div class="offer-price">&#8381;500K</div>
+        <div class="offer-unit">per month, managed</div>
+      </div>
+    </div>
+    <div class="revenue-line">Revenue at 5 clients: <em>&#8381;3M/month</em></div>
+    <div class="contact">
+      <div class="contact-name">Timur Alisherovich</div>
+      <a href="mailto:info@tzai.it.com">info@tzai.it.com</a> &middot;
+      <a href="https://t.me/Salvatore_Lazzaro">t.me/Salvatore_Lazzaro</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
