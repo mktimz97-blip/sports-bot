@@ -73,6 +73,21 @@ h1 em{font-style:normal;color:var(--accent)}
 .ecosystem-note{font-size:clamp(15px,1.5vw,18px);color:var(--muted);font-weight:400;text-align:center}
 .ecosystem-note strong{color:var(--text);font-weight:700}
 
+.info-cards{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap}
+.info-card{flex:1;min-width:200px;border-radius:14px;padding:24px 20px;text-align:center;transition:transform .3s}
+.info-card:hover{transform:translateY(-4px)}
+.info-dark{background:var(--surface);border:1px solid var(--dim)}
+.info-accent{background:linear-gradient(135deg,#00D17A,#00A862);color:#0D0D0D}
+.info-big{font-size:clamp(24px,2.8vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.1}
+.info-dark .info-big{color:var(--accent)}
+.info-accent .info-big{color:#0D0D0D}
+.info-title{font-size:13px;font-weight:700;margin-top:8px}
+.info-dark .info-title{color:var(--text)}
+.info-accent .info-title{color:#0D0D0D}
+.info-sub{font-size:11px;font-weight:500;margin-top:4px}
+.info-dark .info-sub{color:var(--muted)}
+.info-accent .info-sub{color:rgba(0,0,0,.5)}
+
 /* ====== SLIDE 4: MARKET ====== */
 .market-stats{display:flex;gap:60px;flex-wrap:wrap}
 .market-stat{display:flex;flex-direction:column}
@@ -129,7 +144,7 @@ h1 em{font-style:normal;color:var(--accent)}
 <!-- SLIDE 1: STORY -->
 <div class="slide" id="s1">
   <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">01 / 05</div>
+  <div class="slide-num">01 / 04</div>
   <div class="glow glow-tr glow-green"></div>
   <div class="content">
     <div class="tag fade-in">История</div>
@@ -148,7 +163,7 @@ h1 em{font-style:normal;color:var(--accent)}
 <!-- SLIDE 2: PROBLEM -->
 <div class="slide" id="s2">
   <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">02 / 05</div>
+  <div class="slide-num">02 / 04</div>
   <div class="glow glow-bl glow-white"></div>
   <div class="content">
     <div class="tag fade-in">Проблема</div>
@@ -170,14 +185,14 @@ h1 em{font-style:normal;color:var(--accent)}
   </div>
 </div>
 
-<!-- SLIDE 3: ECOSYSTEM -->
+<!-- SLIDE 3: PRODUCT + MARKET -->
 <div class="slide" id="s3">
   <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">03 / 05</div>
+  <div class="slide-num" id="sn3">03 / 04</div>
   <div class="glow glow-tl glow-green"></div>
   <div class="content" style="max-width:1100px">
-    <div class="tag fade-in" style="text-align:center;display:block">Продукт</div>
-    <h1 class="fade-in d1" style="text-align:center">8 агентов. Один мозг.<br><em>Ноль людей.</em></h1>
+    <div class="tag fade-in" style="text-align:center;display:block">Продукт &middot; Рынок</div>
+    <h1 class="fade-in d1" style="text-align:center;margin-bottom:24px">8 агентов. Один мозг.<br><em>Ноль людей.</em></h1>
     <div class="live-counter fade-in d2" id="live-counter">
       <span class="blink"></span>Работает прямо сейчас &mdash; <span class="timer" id="uptime">0 секунд</span>
     </div>
@@ -211,41 +226,30 @@ h1 em{font-style:normal;color:var(--accent)}
         <div class="node-sub">real-time alerts</div>
       </div>
     </div>
-    <div class="ecosystem-note fade-in d3" style="text-align:center">
-      Собрано за <strong>2 недели</strong> &middot; Работает <strong>24/7</strong> &middot; На базе <strong>Claude Opus</strong>
+    <div class="info-cards fade-in d3">
+      <div class="info-card info-dark">
+        <div class="info-big">&#8381;890 млрд</div>
+        <div class="info-title">Рынок РФ и СНГ</div>
+        <div class="info-sub">рост 40%/год</div>
+      </div>
+      <div class="info-card info-accent">
+        <div class="info-big">&lt;2%</div>
+        <div class="info-title">компаний внедрили AI</div>
+        <div class="info-sub">окно возможностей открыто</div>
+      </div>
+      <div class="info-card info-dark">
+        <div class="info-big">2 недели</div>
+        <div class="info-title">от идеи до первого лида</div>
+        <div class="info-sub">работает 24/7</div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 4: MARKET -->
+<!-- SLIDE 4: OFFER -->
 <div class="slide" id="s4">
   <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">04 / 05</div>
-  <div class="glow glow-br glow-green"></div>
-  <div class="content">
-    <div class="tag fade-in">Рынок</div>
-    <h1 class="fade-in d1">Рынок РФ и СНГ<br><em>не тронут</em></h1>
-    <div class="market-stats">
-      <div class="market-stat fade-in d2">
-        <div class="market-num">&#8381;890 млрд</div>
-        <div class="market-sub">объём рынка</div>
-      </div>
-      <div class="market-stat fade-in d3">
-        <div class="market-num">40%</div>
-        <div class="market-sub">рост ежегодно</div>
-      </div>
-      <div class="market-stat fade-in d4">
-        <div class="market-num">&lt;2%</div>
-        <div class="market-sub">уже внедрили AI</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SLIDE 5: OFFER -->
-<div class="slide" id="s5">
-  <div class="logo">TZ<span>AI</span></div>
-  <div class="slide-num">05 / 05</div>
+  <div class="slide-num">04 / 04</div>
   <div class="glow glow-tl glow-green"></div>
   <div class="content">
     <div class="tag fade-in">Предложение</div>
